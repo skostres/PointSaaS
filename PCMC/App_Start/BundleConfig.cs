@@ -42,6 +42,15 @@ namespace PCMC
                     "~/Scripts/plugins/morris/morris.js",
                     "~/Scripts/plugins/morris/morris-min.js",
                     "~/Scripts/plugins/morris/raphael.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                    "~/scripts/angular.js",
+                    "~/scripts/angular-route.min.js",
+                    "~/Client/Navigation/NavigationCtrl.js",
+                    "~/Client/Dashboard/DashboardCtrl.js",
+                    "~/Client/Projects/ProjectsCtrl.js",
+                    "~/Client/Service/SystemSrv.js",
+                    "~/Client/App.js"));
         }
     }
 }
