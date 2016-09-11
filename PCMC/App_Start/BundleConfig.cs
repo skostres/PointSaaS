@@ -9,7 +9,8 @@ namespace PCMC
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-1.12.0.min.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -26,6 +27,9 @@ namespace PCMC
             bundles.Add(new StyleBundle("~/Content/sb-admin").Include(
                       "~/Content/sb-admin.css",
                        "~/Content/plugins/morris.css"));
+
+            bundles.Add(new StyleBundle("~/Content/site").Include(
+                      "~/Content/Site.css"));
 
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
                       "~/Content/font-awesome.css"));
@@ -45,10 +49,14 @@ namespace PCMC
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/scripts/angular.js",
+                    "~/scripts/angular-animate.min.js",
+                    "~/Client/Common/BaseCtrl.js",
+                    "~/Client/Common/Notification.js",
                     "~/scripts/angular-route.min.js",
                     "~/Client/Navigation/NavigationCtrl.js",
-                    "~/Client/Dashboard/DashboardCtrl.js",
-                    "~/Client/Projects/ProjectsCtrl.js",
+                    "~/Client/Notifications/NotificationsCtrl.js",
+                    "~/Client/Pages/Dashboard/DashboardCtrl.js",
+                    "~/Client/Pages/Projects/ProjectsCtrl.js",
                     "~/Client/Service/SystemSrv.js",
                     "~/Client/App.js"));
         }
