@@ -29,7 +29,8 @@ namespace PCMC
                        "~/Content/plugins/morris.css"));
 
             bundles.Add(new StyleBundle("~/Content/site").Include(
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/plugins/epoch.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/font-awesome").Include(
                       "~/Content/font-awesome.css"));
@@ -46,15 +47,37 @@ namespace PCMC
                     "~/Scripts/plugins/morris/morris.js",
                     "~/Scripts/plugins/morris/morris-min.js",
                     "~/Scripts/plugins/morris/raphael.min.js"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                     "~/scripts/angular.js",
                     "~/scripts/angular-animate.min.js",
+                     "~/scripts/angular-ui-router.js",
+
+                     // EPOCH Module
+                     "~/scripts/d3/d3.min.js",
+                     "~/scripts/plugins/epoch/epoch.min.js",
+                     "~/scripts/plugins/epoch/ng-epoch.js",
+
+                     // N3 pie chart
+                     "~/scripts/plugins/n3-pie-chart/pie-chart.min.js",
+
+
+                     "~/scripts/angular-signalr-hub.min.js",
+                     "~/Client/Common/POCO/Role.js",
+                     "~/Client/Common/POCO/User.js",
+                     "~/Client/Service/Session.js",
+                     "~/Client/Service/AuthService.js",
+                     
                     "~/Client/Common/BaseCtrl.js",
                     "~/Client/Common/Notification.js",
-                    "~/scripts/angular-route.min.js",
+                    
+                   "~/Client/Hubs/Communication.js",
+                    //"~/scripts/angular-route.min.js",
                     "~/Client/Navigation/NavigationCtrl.js",
+                    "~/Client/Pages/GradeSubmissions/GradeSubmissionsCtrl.js",
+                    "~/Client/Pages/ManageProjects/ManageProjects.js",
                     "~/Client/Notifications/NotificationsCtrl.js",
+                     "~/Client/Pages/Login/LoginCtrl.js",
                     "~/Client/Pages/Dashboard/DashboardCtrl.js",
                     "~/Client/Pages/Projects/ProjectsCtrl.js",
                     "~/Client/Service/SystemSrv.js",

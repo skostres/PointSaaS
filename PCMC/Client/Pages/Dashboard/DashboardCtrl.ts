@@ -3,9 +3,11 @@
 
 class DashboardCtrl {
     public message: string;
-    constructor($scope, $route, SystemSrv: SystemSrv) {
+    constructor($scope, $state, SystemSrv: SystemSrv) {
         $scope.model = this;
-        SystemSrv.setCurrentPage($route.current.$$route.name);
+        
+        //$scope.$apply()
+        SystemSrv.setCurrentPage($state.current.name);
         this.message = "Hello World!! I am a dashboard controller";
     };
 

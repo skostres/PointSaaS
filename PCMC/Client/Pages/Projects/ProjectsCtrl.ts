@@ -3,10 +3,10 @@
 
 class ProjectsCtrl {
     public message: string;
-    public $scop
-    constructor($scope, $route, SystemSrv: SystemSrv) {
+    constructor($scope, $state, SystemSrv: SystemSrv) {
         $scope.model = this;
-        SystemSrv.setCurrentPage($route.current.$$route.name);
+        //$scope.state = $state;
+        SystemSrv.setCurrentPage($state.current.name);
         this.message = "Hello World!! I am a projects controller";
     };
 

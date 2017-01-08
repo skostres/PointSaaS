@@ -1,0 +1,60 @@
+﻿<div id="page-wrapper">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Performance Monitor
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="#/">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-line-chart"></i>
+                        Performance Monitor
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="row" ng-controller="PerformanceDataController">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-dashboard">
+                    <div class="center">Memory Remaining (in MBs)</div>
+                    <div class="panel-body">
+                        <div class="huge">{{currentRamNumber}}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-dashboard">
+                    <div class="center">Number Of Users</div>
+                    <div class="panel-body">
+                        <div class="huge">{{numberOfUsers}}</div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" ng-controller="PerformanceDataController">
+            <div class="panel-body">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-dashboard">
+                        <div class="center">CPU Performance</div>
+                        <epoch-live-area chart-class="category10" chart-height="200" chart-data="realtimeArea" chart-stream="realtimeAreaFeed" chart-axes="areaAxes">
+                        </epoch-live-area>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-3">
+                    <div class="center">CPU Performance Pie</div>
+                    <div ng-controller="PerformanceDataController" style="height:200px;">
+                        <pie-chart data="data" options="options"></pie-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>

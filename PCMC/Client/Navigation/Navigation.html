@@ -27,15 +27,16 @@
                 </li>
             </ul>
         </li>
+
         <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer"><i class="fa fa-user"></i> Welcome, {{ currentUser.FirstName }} {{currentUser.LastName}} <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li>
-                    <a href="#/"><i class="fa fa-fw fa-user"></i> Profile</a>
+                <li style="padding-left:20px;padding-right:20px;">
+                    <i class="fa fa-fw fa-user"></i> Role: {{currentUser.roleStr}}
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="#/"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    <a href="#/Logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
                 </li>
             </ul>
         </li>
@@ -44,10 +45,19 @@
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav side-nav">
             <li ng-class="{'active': vm.Sys.currentPage == 'Dashboard'}">
-                <a href="#/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                <a href="#/Dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
-            <li ng-class="{'active': vm.Sys.currentPage == 'Projects'}">
+            <li ng-if="currentUser.roleStr == userRoles.admin" ng-class="{'active': vm.Sys.currentPage == 'Projects'}">
                 <a href="#/Projects"><i class="fa fa-fw fa-list-ol"></i> Projects</a>
+            </li>
+            <li ng-if="currentUser.roleStr == userRoles.admin || currentUser.roleStr == userRoles.judge" ng-class="{'active': vm.Sys.currentPage == 'GradeSubmissions'}">
+                <a href="#/GradeSubmissions"><i class="fa fa-fw fa-pencil"></i> Grade Submissions</a>
+            </li>
+            <li ng-if="currentUser.roleStr == userRoles.admin" ng-class="{'active': vm.Sys.currentPage == 'Performance'}">
+                <a href="#/Performance"><i class="fa fa-fw fa-line-chart"></i> Server Performance</a>
+            </li>
+            <li ng-if="currentUser.roleStr == userRoles.admin || currentUser.roleStr == userRoles.judge" ng-class="{'active': vm.Sys.currentPage == 'GradeSubmissions'}">
+                <a href="#/ManageProjects"><i class="fa fa-fw fa-sitemap"></i> Manage Projects</a>
             </li>
         </ul>
     </div>

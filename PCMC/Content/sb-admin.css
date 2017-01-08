@@ -243,3 +243,23 @@ ul.alert-dropdown {
 .panel-blue > a:hover {
     color: #1687df;
 }
+
+
+
+.panel-orange {
+    border-color: #f0ad4e;
+}
+
+.panel-orange > .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-orange > a {
+    color: #f0ad4e;
+}
+
+.panel-orange > a:hover {
+    color: #eb9720;
+}
