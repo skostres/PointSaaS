@@ -382,18 +382,27 @@
     <Content Include="Client\App.js" />
     <Content Include="Client\Pages\Dashboard\Dashboard.html" />
     <Content Include="Client\Navigation\Navigation.html" />
+    <Content Include="Client\Pages\GradeSubmissions\GradeSubmissionModal.html" />
     <Content Include="Client\Pages\GradeSubmissions\GradeSubmissions.html" />
     <Content Include="Client\Pages\Login\Login.html" />
     <Content Include="Client\Pages\ManageProjects\ManageProjects.html" />
     <Content Include="Client\Pages\PerformanceDataController\PerformanceDataController.html" />
+    <Content Include="Client\Pages\Projects\AddProjectModal.html" />
+    <Content Include="Client\Pages\Projects\DeleteProjectModal.html" />
+    <Content Include="Client\Pages\Projects\EditProjectModal.html" />
     <Content Include="Client\Pages\Projects\Projects.html" />
+    <Content Include="Client\Pages\SubmitProjects\AddSubmissionModal.html" />
+    <Content Include="Client\Pages\SubmitProjects\SubmitProjects.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\logos\angular.png" />
+    <Content Include="Content\plugins\angular-growl.css" />
+    <Content Include="Content\plugins\angular-growl.min.css" />
     <Content Include="Content\plugins\epoch.min.css" />
     <Content Include="Content\plugins\morris.css" />
+    <Content Include="Content\plugins\ng-table.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -437,6 +446,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -449,6 +459,10 @@
     <Content Include="scripts\angular-signalr-hub.min.js" />
     <Content Include="scripts\angular-ui-router.js" />
     <Content Include="scripts\angular-ui-router.min.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap-tpls.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap-tpls.min.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap.js" />
+    <Content Include="scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
     <Content Include="scripts\bootstrap.js" />
@@ -463,6 +477,10 @@
     <Content Include="scripts\d3\d3.js" />
     <Content Include="scripts\d3\d3.min.js" />
     <Content Include="scripts\d3\LICENSE" />
+    <None Include=".bin\bower.cmd" />
+    <None Include=".bin\git.cmd" />
+    <None Include=".bin\node.cmd" />
+    <Content Include="Content\plugins\ng-table.css.map" />
     <None Include="scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="scripts\jquery-1.12.4.js" />
     <Content Include="scripts\jquery-1.12.4.min.js" />
@@ -471,6 +489,8 @@
     <Content Include="scripts\jquery.signalR-2.2.1.js" />
     <Content Include="scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\plugins\angular-growl\angular-growl.js" />
+    <Content Include="scripts\plugins\angular-growl\angular-growl.min.js" />
     <Content Include="scripts\plugins\epoch\epoch.min.js" />
     <Content Include="scripts\plugins\epoch\ng-epoch.js" />
     <Content Include="scripts\plugins\flot\excanvas.min.js" />
@@ -479,11 +499,16 @@
     <Content Include="scripts\plugins\flot\jquery.flot.pie.js" />
     <Content Include="scripts\plugins\flot\jquery.flot.resize.js" />
     <Content Include="scripts\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="scripts\plugins\modal-service\angular-modal-service.js" />
+    <Content Include="scripts\plugins\modal-service\angular-modal-service.min.js" />
     <Content Include="scripts\plugins\morris\morris-data.js" />
     <Content Include="scripts\plugins\morris\morris.js" />
     <Content Include="scripts\plugins\morris\morris.min.js" />
     <Content Include="scripts\plugins\morris\raphael.min.js" />
     <Content Include="scripts\jquery-1.12.4.min.map" />
+    <Content Include="scripts\plugins\modal-service\angular-modal-service.js.map" />
+    <Content Include="scripts\plugins\modal-service\angular-modal-service.min.js.map" />
+    <Content Include="scripts\plugins\ng-table\ng-table.js.map" />
     <None Include="v8\Noesis.Javascript.x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -492,6 +517,8 @@
     </None>
     <None Include="scripts\_references.js" />
     <Content Include="scripts\plugins\n3-pie-chart\pie-chart.min.js" />
+    <Content Include="scripts\plugins\ng-file-model\ng-file-model.js" />
+    <Content Include="scripts\plugins\ng-table\ng-table.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
@@ -500,13 +527,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Client\Hubs\DashboardHub.cs" />
+    <Compile Include="Client\Hubs\GradeSubmissionsHub.cs" />
     <Compile Include="Client\Hubs\PerformanceHub.cs" />
+    <Compile Include="Client\Hubs\ProjectsHub.cs" />
+    <Compile Include="Client\Hubs\SubmitProjectsHub.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InstructorsController.cs" />
-    <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Data\CompDBContext.cs" />
+    <Compile Include="DTO\MsgTypeDTO.cs" />
+    <Compile Include="DTO\ProjectDTO.cs" />
+    <Compile Include="DTO\TeamDTO.cs" />
+    <Compile Include="DTO\TeamSubmissionDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\UserRoleDTO.cs" />
     <Compile Include="Engine\PerformanceEngine.cs" />
     <Compile Include="Entities\Instructor.cs" />
     <Compile Include="Entities\JudgeTeamMap.cs" />
@@ -521,17 +556,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701032307517_test.cs" />
-    <Compile Include="Migrations\201701032307517_test.Designer.cs">
-      <DependentUpon>201701032307517_test.cs</DependentUpon>
+    <Compile Include="Migrations\201701312203290_test.cs" />
+    <Compile Include="Migrations\201701312203290_test.Designer.cs">
+      <DependentUpon>201701312203290_test.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701050310376_Projects.cs" />
-    <Compile Include="Migrations\201701050310376_Projects.Designer.cs">
-      <DependentUpon>201701050310376_Projects.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701050410449_New DB.cs" />
-    <Compile Include="Migrations\201701050410449_New DB.Designer.cs">
-      <DependentUpon>201701050410449_New DB.cs</DependentUpon>
+    <Compile Include="Migrations\201702072145040_Added Level field to Project.cs" />
+    <Compile Include="Migrations\201702072145040_Added Level field to Project.Designer.cs">
+      <DependentUpon>201702072145040_Added Level field to Project.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelADO.cs" />
@@ -570,8 +601,14 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Client\Common\BaseCtrl.ts" />
+    <TypeScriptCompile Include="Client\Common\GenericYesNoModalCtrl.ts" />
     <TypeScriptCompile Include="Client\Common\Notification.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\Level.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\MsgType.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\Project.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\TeamSubmission.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\Role.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\Team.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\User.ts" />
     <TypeScriptCompile Include="Client\Hubs\Communication.ts" />
     <TypeScriptCompile Include="Client\Pages\Dashboard\DashboardCtrl.ts" />
@@ -582,6 +619,7 @@
     <TypeScriptCompile Include="Client\Pages\Login\LoginCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\ManageProjects\ManageProjects.ts" />
     <TypeScriptCompile Include="Client\Pages\Projects\ProjectsCtrl.ts" />
+    <TypeScriptCompile Include="Client\Pages\SubmitProjects\SubmitProjectsCtrl.ts" />
     <TypeScriptCompile Include="Client\Service\AuthService.ts" />
     <TypeScriptCompile Include="Client\Service\Session.ts" />
     <TypeScriptCompile Include="Client\Service\SystemSrv.ts" />
@@ -601,14 +639,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701032307517_test.resx">
-      <DependentUpon>201701032307517_test.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701312203290_test.resx">
+      <DependentUpon>201701312203290_test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701050310376_Projects.resx">
-      <DependentUpon>201701050310376_Projects.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701050410449_New DB.resx">
-      <DependentUpon>201701050410449_New DB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702072145040_Added Level field to Project.resx">
+      <DependentUpon>201702072145040_Added Level field to Project.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

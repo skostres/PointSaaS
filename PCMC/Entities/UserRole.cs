@@ -2,6 +2,6 @@
 {
     public enum UserRole
     {
-        Admin, Judge, Participant
+        Admin=0, Judge=1, Participant=2, All=3, Guest=4
     }
 }

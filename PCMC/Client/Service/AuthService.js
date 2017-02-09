@@ -1,6 +1,6 @@
 // Class will be used for pop-up alerts within the app
 var AuthService = (function () {
-    function AuthService($http) {
+    function AuthService($http, growl) {
         AuthService.authService.session = new Session();
         AuthService.authService.login = function (credentials) {
             return $http
@@ -8,6 +8,9 @@ var AuthService = (function () {
                 .then(function (res) {
                 AuthService.authService.session.create(res.data.ID, res.data.LastName, res.data.FirstName, res.data.Password, res.data.Username, res.data.Role);
                 return AuthService.authService.session.currentUser;
+            }.bind(this))
+                .catch(function (response) {
+                growl.error("Login Failed", { ttl: 10000 });
             }.bind(this));
         }.bind(this);
         AuthService.authService.isAuthenticated = function () {

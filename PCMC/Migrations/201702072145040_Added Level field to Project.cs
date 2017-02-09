@@ -3,16 +3,16 @@ namespace PCMC.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NewDB : DbMigration
+    public partial class AddedLevelfieldtoProject : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.TeamSubmissions", "Score", c => c.Int(nullable: false));
+            AddColumn("dbo.Projects", "Level", c => c.Int(nullable: false));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.TeamSubmissions", "Score");
+            DropColumn("dbo.Projects", "Level");
         }
     }
 }

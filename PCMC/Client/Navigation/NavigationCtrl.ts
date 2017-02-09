@@ -3,9 +3,17 @@
 
 class NavigationCtrl {
     public Sys: SystemSrv;
-    constructor($scope, SystemSrv: SystemSrv) {
+    constructor($scope, $rootScope, SystemSrv: SystemSrv) {
         this.Sys = SystemSrv;
         $scope.vm = this;
+        // Generate level options
+        $rootScope.levels = {};
+        for (var enumMember in Level) {
+            var isValueProperty = parseInt(enumMember, 10) >= 0
+            if (isValueProperty) {
+                $rootScope.levels[enumMember] = { "ID": enumMember, "Name": Level[enumMember] };
+            }
+        }
     };
 
 }

@@ -1,4 +1,4 @@
-﻿<div id="page-wrapper">
+﻿<div id="page-wrapper" ng-controller="ProjectsCtrl as proj">
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="row">
@@ -27,64 +27,36 @@
                             <thead>
                                 <tr>
                                     <th>ID.</th>
-                                    <th>Point Value</th>
-                                    <th>Instructions</th>
-                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>Level</th>
+                                    <th>Description</th>
+                                    <th><span class="fa fa-list-ol"></span> Max Score</th>
+                                    <th>Judge Instructions</th>
+                                    <th>Student Instructions</th>
+                                    <th>Visible</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody ng-repeat="model in projects.list track by model.ID">
                                 <tr>
-                                    <td>1</td>
-                                    <td>10 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-check-circle font-green"></span> Complete</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>10 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-check-circle font-green"></span> Complete</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>10 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-times-circle font-red"></span> Not submitted</td>
-                                    <td><span class="fa fa-upload font-blue"></span> Submit Answer (ZIP)</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>12 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-times-circle font-red"></span> Not submitted</td>
-                                    <td><span class="fa fa-upload font-blue"></span> Submit Answer (ZIP)</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>15 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-times-circle font-red"></span> Not submitted</td>
-                                    <td><span class="fa fa-upload font-blue"></span> Submit Answer (ZIP)</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>10 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-times-circle font-red"></span> Not submitted</td>
-                                    <td><span class="fa fa-upload font-blue"></span> Submit Answer (ZIP)</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>20 pts</td>
-                                    <td><span class="fa fa-file"></span> Problem description</td>
-                                    <td><span class="fa fa-times-circle font-red"></span> Not submitted</td>
-                                    <td><span class="fa fa-upload font-blue"></span> Submit Answer (ZIP)</td>
-                                </tr>
+                                    <td>{{model.ID}}</td>
+                                    <td>{{model.Name}}</td>
+                                    <td>
+                                        {{levels[model.Level].Name}}
+                                    </td>
+                                    <td>{{model.Description}}</td>
+                                    <td>{{model.MaxScore}}</td>
+                                    <td><a style="cursor:pointer" ng-click="proj.downloadFile(model.Name+'Judge-Instructions',model.RawZipFileJudges);"><span class="fa fa-download"></span> Judge Instructions</a></td>
+                                    <td><a style="cursor:pointer" ng-click="proj.downloadFile(model.Name+'Participant-Instructions',model.RawZipFileParticipants);"><span class="fa fa-download"></span> Participant Instructions</a></td>
+                                    <td ng-switch="model.Hidden">
+                                        <span ng-switch-when="true" style="color:red">Hidden</span>
+                                        <span ng-switch-when="false" style="color:green">Visible</span>
+                                    </td>
+                                    <td><a style="cursor:pointer" ng-click="proj.editProjectModal(model)"><span class="fa fa-edit" style="color:green"></span> Edit</a> <a style="cursor:pointer;" ng-click="proj.deleteProjectModal(model)"><span class="fa fa-remove" style="color:red"></span> Delete</a></td>
+                                 </tr>
                             </tbody>
                         </table>
+                        <div class="text-right"><button type="button" class="btn btn-success" ng-click="proj.addProjectModal()">Add a New Project</button></div>
                 </div>
             </div>
         </div>

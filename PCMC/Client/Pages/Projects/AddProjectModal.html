@@ -1,0 +1,67 @@
+﻿<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Add a Project</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Project Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" placeholder="The name of the project" ng-model="model.Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" id="description" placeholder="Some detail about the project" ng-model="model.Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Max Score</label>
+                        <div class="col-sm-10">
+                            <input type="number" class="form-control" id="MaxScore" placeholder="The maximum score" ng-model="model.MaxScore">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Judge Instructions</label>
+                        <div class="col-sm-10">
+                            <input type="file" fileread="uploadme1.src" ng-file-model="uploadme1.src" accept=".zip" />
+                            <div>Only upload if you wish to change the existing zip</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Participant Instructions</label>
+                        <div class="col-sm-10">
+                            <input type="file" fileread="uploadme2.src" ng-file-model="uploadme2.src" />
+
+                            <div>Only upload if you wish to change the existing zip</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Is Visible</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" class="form-control" id="isHidden" ng-model="model.Hidden">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Project Level</label>
+                        <div class="col-sm-10">
+                            <select ng-model="model.Level">
+                                <option ng-repeat="op in levels" value="{{op.ID}}">{{op.Name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <div class="alert-danger" ng-if="uploadme1.src == '' || uploadme2.src == ''">Both judge and participant instructions must be uploaded.</div>
+                <button type="button" ng-disabled="uploadme1.src == '' || uploadme2.src == ''" ng-click="close()" class="btn btn-primary" data-dismiss="modal">OK</button>
+                <button type="button" ng-click="cancel()" class="btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Make a submission for project: {{model.Name}}</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    
+                    <div class="form-group">
+                        <label for="age" class="col-sm-2 control-label">Student Solution</label>
+                        <div class="col-sm-10">
+                            <input type="file" fileread="uploadme1.src" ng-file-model="uploadme1.src" accept=".zip" />
+                            <div ng-if="uploadme1.src != ''"><a style="cursor:pointer" ng-click="downloadPreSubmission('Participant-Submission',uploadme1.src)"><span class="fa fa-download"></span> View Submission</a></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="alert-danger" ng-if="uploadme1.src == ''">Please upload a zip file before proceeding</div>
+                <button type="button" ng-disabled="uploadme1.src == ''" ng-click="close()" class="btn btn-primary" data-dismiss="modal">Make Submission</button>
+                <button type="button" ng-click="cancel()" class="btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

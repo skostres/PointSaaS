@@ -38,13 +38,15 @@
         </div>
         <!-- /#wrapper -->
 
-
+        <!--
         <div class="footer">
             POWERED BY:
             <img src="~/Content/logos/angular.png" height="60" />
         </div>
-
-        <!--ALERT NOTIFICATIONS-->
+            -->
+        
+                
+        <!--
         <div ng-hide="true" style="position:absolute; right:10px; top:61px; z-index:9000" ng-controller="NotificationsCtrl as noti">
             <div ng-repeat="n in noti.notificationList">
                 <div draggable id="{{n.UUID}}" ng-if="!n.expired" class="alert alert-dismissable {{noti.getClassOfNotification(n.type)}} draggable" ng-class="{'fade-out': n.expired}">
@@ -52,8 +54,13 @@
                     <i class="fa fa-info-circle"></i> {{n.message}}
                 </div>
             </div>
-        </div>
+        </div>-->
 
+    </div>
+    <!-- jumbotron -->
+    <!--ALERT NOTIFICATIONS-->
+    <div style="position:absolute; right:10px; top:61px; z-index:9000">
+        <div growl limit-messages="3"></div>
     </div>
 
     @RenderBody()

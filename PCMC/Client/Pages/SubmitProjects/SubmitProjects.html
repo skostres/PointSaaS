@@ -1,0 +1,51 @@
+﻿<div id="page-wrapper" ng-controller="SubmitProjectsCtrl as proj">
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Projects
+                    <small>Participant challege problems</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="#/">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-file"></i>
+                        Projects
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-10">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover table-striped" ng-table="tableParams" show-filter="false">
+                            
+                            <tbody ng-repeat="model in $data track by model.Project.ID">
+                                <tr>
+                                    <!--<td title="'ID.'" filter="{ ID: 'number'}" sortable="'ID'">{{model.Project.ID}}</td>-->
+                                    <td title="'Name'" filter="{ Name: 'text'}" sortable="'Project.Name'">{{model.Project.Name}}</td>
+                                    <td title="'Description'" filter="{ Description: 'text'}" sortable="'Project.Description'">{{model.Project.Description}}</td>
+                                    <td title="'MaxScore'" filter="{ MaxScore: 'number'}" sortable="'Project.MaxScore'">{{model.Project.MaxScore}}</td>
+                                    <td title="'Student Instructions'" ><a style="cursor:pointer" ng-click="proj.downloadFile(model.Project.Name+'Participant-Instructions',model.Project.RawZipFileParticipants);"><span class="fa fa-download"></span> Participant Instructions</a></td>
+                                    <td title="'Status'" ng-switch="model.RawZipSolution == null" sortable="'RawZipSolution'">
+                                        <span ng-switch-when="true" class="fa fa-close font-red"> Not submitted</span>
+                                        <div ng-switch-when="false"><span class="fa fa-check font-green"> Submission Made</span> <span class="fa fa-download font-blue"><a style="cursor:pointer" ng-click="proj.downloadFile(model.Project.Name+'Participant-Submission',model.RawZipSolution);"> Inspect Submission</a></span></div>
+                                    </td>
+                                    <td title="'Actions'"><a style="cursor:pointer" ng-click="proj.addSubmissionModal(model.Project)"><span class="fa fa-upload" style="color:green"></span> Submit Solution</a></td>
+                                 </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /#page-wrapper -->

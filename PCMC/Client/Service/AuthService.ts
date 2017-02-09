@@ -2,7 +2,7 @@
 class AuthService {
 
     public static authService: any = {}; 
-    public constructor($http) {
+    public constructor($http, growl) {
 
         AuthService.authService.session = new Session();
 
@@ -12,7 +12,10 @@ class AuthService {
                 .then(function (res) {
                     AuthService.authService.session.create(res.data.ID, res.data.LastName, res.data.FirstName, res.data.Password, res.data.Username, res.data.Role);
                     return AuthService.authService.session.currentUser;
-                }.bind(this));
+                }.bind(this))
+                .catch(function (response) {
+                    growl.error("Login Failed", { ttl: 10000 });
+                }.bind(this))
         }.bind(this);
 
         AuthService.authService.isAuthenticated = function () {

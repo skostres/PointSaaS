@@ -2,6 +2,6 @@
 {
     public enum Level
     {
-        ADVANCED, INTRODUCTION
+        ADVANCED=0, INTRODUCTION=1
     }
 }

@@ -89,3 +89,20 @@ textarea {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+
+/* MODAL SERVICE SETTINGS */
+.modal.ng-enter {
+  transition: opacity .5s ease-out;
+  opacity: 0;
+}
+.modal.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+.modal.ng-leave {
+  transition: opacity .5s ease-out;
+  opacity: 1;
+}
+.modal.ng-leave.ng-leave-active {
+  opacity: 0;
+}

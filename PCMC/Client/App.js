@@ -1,4 +1,4 @@
-﻿var PCMCApp = angular.module("mainApp", ['ui.router', 'ngAnimate', 'SignalR', 'ng.epoch', 'n3-pie-chart'])
+﻿var PCMCApp = angular.module("mainApp", ['ui.router', 'ngAnimate', 'SignalR', 'ng.epoch', 'n3-pie-chart', 'angularModalService', "ng-file-model", 'ui.bootstrap', 'angular-growl', 'ngTable'])
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',
@@ -75,6 +75,15 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     })
 
+    $stateProvider.state('SubmitProjects', {
+        url: '/SubmitProjects',
+        templateUrl: 'Client/Pages/SubmitProjects/SubmitProjects.html',
+        controller: "SubmitProjectsCtrl",
+        data: {
+            authorizedRoles: [USER_ROLES.participant]
+        }
+    })
+
         .state('Logout', {
             url: '/Logout',
             controller: function ($scope, $state, $rootScope, AUTH_EVENTS) {
@@ -112,7 +121,6 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
           }
 	    ]);
 	})
-
     .factory('AuthInterceptor', function ($rootScope, $q,
                                           AUTH_EVENTS) {
         return {
@@ -137,12 +145,15 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     ])
     .factory('AuthService', AuthService)
 
+    // Modals
+    .controller("GenericYesNoModalCtrl", GenericYesNoModalCtrl)
     .controller("NavigationCtlr", NavigationCtrl)
     .controller("DashboardCtrl", DashboardCtrl)
     .controller("ProjectsCtrl", ProjectsCtrl)
     .controller("NotificationsCtrl", NotificationsCtrl)
     .controller("GradeSubmissionsCtrl", GradeSubmissionsCtrl)
-    .controller("ManageProjectsCtrl",ManageProjectsCtrl)
+    .controller("ManageProjectsCtrl", ManageProjectsCtrl)
+    .controller("SubmitProjectsCtrl",SubmitProjectsCtrl)
     .controller('AuthCtrl', function ($scope,
                                       USER_ROLES,
                                       AuthService) {
@@ -210,6 +221,12 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
             }
         };
     })
+
+/* ALERTS CONFIG */
+.config(['growlProvider', function(growlProvider) {
+    growlProvider.globalTimeToLive(5000);
+    growlProvider.globalPosition('bottom-right');
+}])
 /********************************************************
 SIGNAL R SETUP
 *********************************************************/

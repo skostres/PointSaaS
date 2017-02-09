@@ -7,13 +7,13 @@ namespace PCMC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Projects : IMigrationMetadata
+    public sealed partial class AddedLevelfieldtoProject : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Projects));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedLevelfieldtoProject));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701050310376_Projects"; }
+            get { return "201702072145040_Added Level field to Project"; }
         }
         
         string IMigrationMetadata.Source

@@ -11,6 +11,6 @@ namespace PCMC.Entities
         [Key]
         public int ID { get; set; }
         public User Judge { get; set; }
-        public ICollection<Team> Team { get; set; }
+        public Team Team { get; set; }
     }
 }
