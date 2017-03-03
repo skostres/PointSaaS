@@ -3,7 +3,7 @@ namespace PCMC.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class test : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -70,6 +70,7 @@ namespace PCMC.Migrations
                         Description = c.String(),
                         MaxScore = c.Int(nullable: false),
                         Hidden = c.Boolean(nullable: false),
+                        Level = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -77,12 +78,13 @@ namespace PCMC.Migrations
                 "dbo.Schools",
                 c => new
                     {
-                        ID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        Instructor_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Instructors", t => t.ID)
-                .Index(t => t.ID);
+                .ForeignKey("dbo.Instructors", t => t.Instructor_ID)
+                .Index(t => t.Instructor_ID);
             
             CreateTable(
                 "dbo.Students",
@@ -127,7 +129,7 @@ namespace PCMC.Migrations
             DropForeignKey("dbo.Students", "TeamAssigned_ID", "dbo.Teams");
             DropForeignKey("dbo.Students", "SchoolEnrolled_ID", "dbo.Schools");
             DropForeignKey("dbo.Teams", "School_ID", "dbo.Schools");
-            DropForeignKey("dbo.Schools", "ID", "dbo.Instructors");
+            DropForeignKey("dbo.Schools", "Instructor_ID", "dbo.Instructors");
             DropForeignKey("dbo.JudgeTeamMaps", "Team_ID", "dbo.Teams");
             DropForeignKey("dbo.JudgeTeamMaps", "Judge_ID", "dbo.Users");
             DropIndex("dbo.TeamSubmissions", new[] { "Team_ID" });
@@ -135,7 +137,7 @@ namespace PCMC.Migrations
             DropIndex("dbo.Students", new[] { "User_ID" });
             DropIndex("dbo.Students", new[] { "TeamAssigned_ID" });
             DropIndex("dbo.Students", new[] { "SchoolEnrolled_ID" });
-            DropIndex("dbo.Schools", new[] { "ID" });
+            DropIndex("dbo.Schools", new[] { "Instructor_ID" });
             DropIndex("dbo.Teams", new[] { "School_ID" });
             DropIndex("dbo.Users", new[] { "Username" });
             DropIndex("dbo.JudgeTeamMaps", new[] { "Team_ID" });

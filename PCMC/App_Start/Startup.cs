@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Owin.Cors;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
-using SignalrWebService.Performance;
 
 [assembly: OwinStartup(typeof(SignalrWebService.Startup))]
 namespace SignalrWebService
@@ -24,10 +23,7 @@ namespace SignalrWebService
             var hubConfiguration = new HubConfiguration();
             hubConfiguration.EnableDetailedErrors = true;
             app.MapSignalR(hubConfiguration);
-
-
-            PerformanceEngine performanceEngine = new PerformanceEngine(2000); // , GetRequiredPerformanceMonitors()
-            Task.Factory.StartNew(async () => await performanceEngine.OnPerformanceMonitor());
+            
         }
        
     }

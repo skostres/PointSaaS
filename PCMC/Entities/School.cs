@@ -9,7 +9,6 @@ namespace PCMC.Entities
         public int ID { get; set; }
         public string Name { get; set; }
 
-        [ForeignKey("ID")]
         public Instructor Instructor { get; set; }
         public ICollection<Team> Teams { get; set; }
     }

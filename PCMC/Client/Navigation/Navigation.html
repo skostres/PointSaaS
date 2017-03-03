@@ -44,12 +44,13 @@
             <li ng-if="currentUser.roleStr == userRoles.admin || currentUser.roleStr == userRoles.judge" ng-class="{'active': vm.Sys.currentPage == 'GradeSubmissions'}">
                 <a href="#/GradeSubmissions"><i class="fa fa-fw fa-pencil"></i> Grade Submissions</a>
             </li>
+            <!--
             <li ng-if="currentUser.roleStr == userRoles.admin" ng-class="{'active': vm.Sys.currentPage == 'Performance'}">
                 <a href="#/Performance"><i class="fa fa-fw fa-line-chart"></i> Server Performance</a>
             </li>
             <li ng-if="currentUser.roleStr == userRoles.admin || currentUser.roleStr == userRoles.judge" ng-class="{'active': vm.Sys.currentPage == 'ManageProjects'}">
                 <a href="#/ManageProjects"><i class="fa fa-fw fa-sitemap"></i> Manage Projects</a>
-            </li>
+            </li>-->
 
             <li ng-if="currentUser.roleStr == userRoles.participant" ng-class="{'active': vm.Sys.currentPage == 'SubmitProjects'}">
                 <a href="#/SubmitProjects"><i class="fa fa-fw fa-upload"></i> Work On Projects</a>

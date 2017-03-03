@@ -481,6 +481,8 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <Content Include="Content\plugins\ng-table.css.map" />
+    <Content Include="PCMC_SetupNewest.xls" />
+    <None Include="Properties\PublishProfiles\IIS_PCMC.pubxml" />
     <None Include="scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="scripts\jquery-1.12.4.js" />
     <Content Include="scripts\jquery-1.12.4.min.js" />
@@ -542,7 +544,6 @@
     <Compile Include="DTO\TeamSubmissionDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserRoleDTO.cs" />
-    <Compile Include="Engine\PerformanceEngine.cs" />
     <Compile Include="Entities\Instructor.cs" />
     <Compile Include="Entities\JudgeTeamMap.cs" />
     <Compile Include="Entities\Level.cs" />
@@ -556,13 +557,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701312203290_test.cs" />
-    <Compile Include="Migrations\201701312203290_test.Designer.cs">
-      <DependentUpon>201701312203290_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702072145040_Added Level field to Project.cs" />
-    <Compile Include="Migrations\201702072145040_Added Level field to Project.Designer.cs">
-      <DependentUpon>201702072145040_Added Level field to Project.cs</DependentUpon>
+    <Compile Include="Migrations\201703031902480_Initial.cs" />
+    <Compile Include="Migrations\201703031902480_Initial.Designer.cs">
+      <DependentUpon>201703031902480_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelADO.cs" />
@@ -639,11 +636,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701312203290_test.resx">
-      <DependentUpon>201701312203290_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702072145040_Added Level field to Project.resx">
-      <DependentUpon>201702072145040_Added Level field to Project.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703031902480_Initial.resx">
+      <DependentUpon>201703031902480_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
