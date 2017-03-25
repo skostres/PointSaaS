@@ -6,4 +6,3 @@ var Role;
     Role[Role["Guest"] = 3] = "Guest";
     Role[Role["All"] = 4] = "All";
 })(Role || (Role = {}));
-//# sourceMappingURL=Role.js.map

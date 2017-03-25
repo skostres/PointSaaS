@@ -24,7 +24,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped" ng-table="tableParams" show-filter="false">
 
-                        <tbody ng-repeat="model in $data track by model.Project.ID">
+                        <tbody ng-repeat="model in $data track by model.ID">
                             <tr>
                                 <!--<td title="'ID.'" filter="{ ID: 'number'}" sortable="'ID'">{{model.Project.ID}}</td>-->
                                 <td title="'Project Name'" filter="{ Name: 'text'}" sortable="'Project.Name'">{{model.Project.Name}}</td>

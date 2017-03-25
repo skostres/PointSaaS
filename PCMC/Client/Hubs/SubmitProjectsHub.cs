@@ -16,6 +16,7 @@ namespace PCMC.Client.Hubs
         private static ProjectsHub projHub = new ProjectsHub();
         private static IHubContext hubContextDash = GlobalHost.ConnectionManager.GetHubContext<DashboardHub>();
         private static IHubContext hubContextProj = GlobalHost.ConnectionManager.GetHubContext<ProjectsHub>();
+        private static IHubContext hubContextGrades = GlobalHost.ConnectionManager.GetHubContext<GradeSubmissionsHub>();
         protected ModelADO db = new ModelADO();
 
         /*
@@ -81,13 +82,16 @@ namespace PCMC.Client.Hubs
                 Team teamAssigned = db.Students.Where(c=>c.User.ID == usrDB.ID).Select(c=>c.TeamAssigned).First();
                 // Determine if no project exists, if so add it otherwise update it.
                 IQueryable<TeamSubmission> tSub = db.TeamSubmission.Where(c => c.Team.ID == teamAssigned.ID && c.Project.ID == submission.Project.ID);
+                TeamSubmission sub = null;
+
                 if (tSub.Count() == 0)
                 {
-                    db.TeamSubmission.Add(new TeamSubmission() {Project=db.Projects.Where(c=>c.ID == submission.Project.ID).First(), RawZipSolution= Convert.FromBase64String(submission.RawZipSolution), Score = -1, Team=teamAssigned});
+                    sub = new TeamSubmission() { Project = db.Projects.Where(c => c.ID == submission.Project.ID).First(), RawZipSolution = Convert.FromBase64String(submission.RawZipSolution), Score = -1, Team = teamAssigned };
+                    db.TeamSubmission.Add(sub);
                     db.SaveChanges();
                 } else
                 {
-                    TeamSubmission sub = db.TeamSubmission.Find(tSub.First().ID);
+                    sub = db.TeamSubmission.Find(tSub.First().ID);
                     sub.RawZipSolution = Convert.FromBase64String(submission.RawZipSolution);
                     sub.Score = -1;
                     db.SaveChanges();
@@ -97,6 +101,7 @@ namespace PCMC.Client.Hubs
                 hubContextProj.Clients.Group("Team"+teamAssigned.ID).notifyChange(submission.Project, "A submission was made by: \""+ usrDB.FirstName+"\"", MsgTypeDTO.INFORMATION);
                 hubContextProj.Clients.Group("JudgeGroupTeam" + teamAssigned.ID).notifyChange(submission.Project, "A student made a submission!", MsgTypeDTO.INFORMATION);
                 hubContextProj.Clients.Group("Admins").notifyChange(submission.Project, "A student made a submission!", MsgTypeDTO.INFORMATION);
+                BroadcastGraders("JudgeGroupTeam" + teamAssigned.ID, teamAssigned, new TeamSubmissionDTO(sub));
 
                 //
                 dashHub.BroadcastSubmissionsAwaitingGrade(usr);
@@ -105,6 +110,15 @@ namespace PCMC.Client.Hubs
                 
                 // Does not exist so we will replace it.
             }
+        }
+
+        /**
+         * Broadcasts a complete update of all submissions for Admins and the specified judge mapping
+         */
+        private void BroadcastGraders(string judgeGroup, Team team, TeamSubmissionDTO submission)
+        {
+            hubContextGrades.Clients.Group("Admins").updatedSubmission(submission);    //Admins see all..
+            hubContextGrades.Clients.Group(judgeGroup).updatedSubmission(submission);
         }
 
         public void BroadcastTeamSubmissions(UserDTO usr)

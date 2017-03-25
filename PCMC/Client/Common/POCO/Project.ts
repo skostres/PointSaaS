@@ -13,6 +13,7 @@ class Project {
         this.Hidden = IsHidden;
         this.Level = Level;
     }
+
     public ID: number;
     public RawZipFileJudges: string;
     public RawZipFileParticipants: string;

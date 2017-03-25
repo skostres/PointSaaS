@@ -1,6 +1,6 @@
 /*
-*  A Project class used to retain information sent from the server
-*/
+ *  A Project class used to retain information sent from the server
+ */
 var Project = (function () {
     function Project(ID, JudgeZip, ParZip, Name, MaxScore, Desc, IsHidden, Level) {
         this.ID = ID;
@@ -14,4 +14,3 @@ var Project = (function () {
     }
     return Project;
 }());
-//# sourceMappingURL=Project.js.map

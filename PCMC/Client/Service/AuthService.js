@@ -28,4 +28,3 @@ var AuthService = (function () {
     AuthService.authService = {};
     return AuthService;
 }());
-//# sourceMappingURL=AuthService.js.map

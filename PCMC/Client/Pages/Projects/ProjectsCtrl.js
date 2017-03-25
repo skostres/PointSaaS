@@ -138,4 +138,3 @@ var ProjectsCtrl = (function () {
     };
     return ProjectsCtrl;
 }());
-//# sourceMappingURL=ProjectsCtrl.js.map

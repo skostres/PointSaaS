@@ -26,11 +26,32 @@ class GradeSubmissionsCtrl {
 
        gradeSubmissionsHub.on('submissionTeamPoll', function (data: Array<TeamSubmission>) {
             // Map each element to corresponding project
-            $scope.projects.submissions = data;
+           $scope.projects.submissions = data;
 
             $scope.tableParams = new NgTableParams({}, { dataset: $scope.projects.submissions });
             $scope.$apply();
         }.bind(this));
+
+       gradeSubmissionsHub.on('updatedSubmission', function (data: TeamSubmission) {
+           if ($scope.projects.submissions != null) {
+               var found = false;
+               $scope.projects.submissions.map(function (value: TeamSubmission, index: number, arr: TeamSubmission[]) {
+                   if (value.ID == data.ID) {
+                        // Update relevant data
+                       value.RawZipSolution = data.RawZipSolution;
+                       value.Score = data.Score;
+                       value.Project = data.Project;
+                       found = true;
+                   }
+               });
+
+               if (!found) {
+                   $scope.projects.submissions.push(data);
+               }
+               $scope.$apply();
+           }
+
+       }.bind(this));
 
         //Subscribe(UserDTO usr)
         connection.start().done(function () {

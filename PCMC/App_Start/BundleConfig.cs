@@ -82,7 +82,12 @@ namespace PCMC
                      "~/scripts/angular-signalr-hub.min.js",
                      "~/Client/Common/POCO/Level.js",
                      "~/Client/Common/POCO/Team.js",
+                     "~/Client/Common/POCO/Instructor.js",
+                     "~/Client/Common/POCO/School.js",
+                     "~/Client/Common/POCO/Student.js",
                       "~/Client/Common/POCO/TeamSubmission.js",
+                      "~/Client/Common/POCO/ReportRecord.js",
+                      "~/Client/Common/POCO/ReportModel.js",
                      "~/Client/Common/POCO/MsgType.js",
                      "~/Client/Common/POCO/Role.js",
                      "~/Client/Common/POCO/User.js",
@@ -100,8 +105,10 @@ namespace PCMC
                     
                    "~/Client/Hubs/Communication.js",
                     //"~/scripts/angular-route.min.js",
+                    // Controllers...
                     "~/Client/Navigation/NavigationCtrl.js",
                     "~/Client/Pages/GradeSubmissions/GradeSubmissionsCtrl.js",
+                    "~/Client/Pages/Report/ReportCtrl.js",
                     "~/Client/Pages/SubmitProjects/SubmitProjectsCtrl.js",
                     "~/Client/Pages/ManageProjects/ManageProjects.js",
                     "~/Client/Notifications/NotificationsCtrl.js",

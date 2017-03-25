@@ -33,6 +33,24 @@ var GradeSubmissionsCtrl = (function () {
             $scope.tableParams = new NgTableParams({}, { dataset: $scope.projects.submissions });
             $scope.$apply();
         }.bind(this));
+        gradeSubmissionsHub.on('updatedSubmission', function (data) {
+            if ($scope.projects.submissions != null) {
+                var found = false;
+                $scope.projects.submissions.map(function (value, index, arr) {
+                    if (value.ID == data.ID) {
+                        // Update relevant data
+                        value.RawZipSolution = data.RawZipSolution;
+                        value.Score = data.Score;
+                        value.Project = data.Project;
+                        found = true;
+                    }
+                });
+                if (!found) {
+                    $scope.projects.submissions.push(data);
+                }
+                $scope.$apply();
+            }
+        }.bind(this));
         //Subscribe(UserDTO usr)
         connection.start().done(function () {
             console.log('Connection established!');
@@ -106,4 +124,3 @@ var GradeSubmissionsCtrl = (function () {
     };
     return GradeSubmissionsCtrl;
 }());
-//# sourceMappingURL=GradeSubmissionsCtrl.js.map

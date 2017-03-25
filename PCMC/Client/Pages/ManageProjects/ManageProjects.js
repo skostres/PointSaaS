@@ -9,4 +9,3 @@ var ManageProjectsCtrl = (function () {
     ;
     return ManageProjectsCtrl;
 }());
-//# sourceMappingURL=ManageProjects.js.map

@@ -77,7 +77,7 @@ namespace PCMC.Client.Hubs
                         break;
                 }
 
-                Clients.Caller.submissionTeamPoll(listToBeReturned);
+                //Clients.Caller.submissionTeamPoll(listToBeReturned);
             }
         }
 

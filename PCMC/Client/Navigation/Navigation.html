@@ -55,6 +55,10 @@
             <li ng-if="currentUser.roleStr == userRoles.participant" ng-class="{'active': vm.Sys.currentPage == 'SubmitProjects'}">
                 <a href="#/SubmitProjects"><i class="fa fa-fw fa-upload"></i> Work On Projects</a>
             </li>
+
+            <li ng-if="currentUser.roleStr == userRoles.admin" ng-class="{'active': vm.Sys.currentPage == 'Report'}">
+                <a href="#/Report"><i class="fa fa-fw fa-line-chart"></i> Who won (Report)</a>
+            </li>
         </ul>
     </div>
     <!-- /.navbar-collapse -->

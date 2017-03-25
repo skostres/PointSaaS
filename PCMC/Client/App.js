@@ -47,6 +47,15 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
         }
     });
 
+    $stateProvider.state('Report', {
+        url: '/Report',
+        templateUrl: 'Client/Pages/Report/Report.html',
+        controller: "ReportCtrl",
+        data: {
+            authorizedRoles: [USER_ROLES.admin]
+        }
+    });
+
     $stateProvider.state('Projects', {
         url: '/Projects',
         templateUrl: 'Client/Pages/Projects/Projects.html',
@@ -153,7 +162,8 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     .controller("NotificationsCtrl", NotificationsCtrl)
     .controller("GradeSubmissionsCtrl", GradeSubmissionsCtrl)
     .controller("ManageProjectsCtrl", ManageProjectsCtrl)
-    .controller("SubmitProjectsCtrl",SubmitProjectsCtrl)
+    .controller("SubmitProjectsCtrl", SubmitProjectsCtrl)
+    .controller("ReportCtrl", ReportCtrl)
     .controller('AuthCtrl', function ($scope,
                                       USER_ROLES,
                                       AuthService) {

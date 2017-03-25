@@ -16,4 +16,3 @@ var NavigationCtrl = (function () {
     ;
     return NavigationCtrl;
 }());
-//# sourceMappingURL=NavigationCtrl.js.map

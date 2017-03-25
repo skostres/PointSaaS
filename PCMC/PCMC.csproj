@@ -391,6 +391,7 @@
     <Content Include="Client\Pages\Projects\DeleteProjectModal.html" />
     <Content Include="Client\Pages\Projects\EditProjectModal.html" />
     <Content Include="Client\Pages\Projects\Projects.html" />
+    <Content Include="Client\Pages\Report\Report.html" />
     <Content Include="Client\Pages\SubmitProjects\AddSubmissionModal.html" />
     <Content Include="Client\Pages\SubmitProjects\SubmitProjects.html" />
     <Content Include="Content\bootstrap.css" />
@@ -533,13 +534,17 @@
     <Compile Include="Client\Hubs\GradeSubmissionsHub.cs" />
     <Compile Include="Client\Hubs\PerformanceHub.cs" />
     <Compile Include="Client\Hubs\ProjectsHub.cs" />
+    <Compile Include="Client\Hubs\ReportHub.cs" />
     <Compile Include="Client\Hubs\SubmitProjectsHub.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CompDBContext.cs" />
+    <Compile Include="DTO\InstructorDTO.cs" />
     <Compile Include="DTO\MsgTypeDTO.cs" />
     <Compile Include="DTO\ProjectDTO.cs" />
+    <Compile Include="DTO\SchoolDTO.cs" />
+    <Compile Include="DTO\StudentDTO.cs" />
     <Compile Include="DTO\TeamDTO.cs" />
     <Compile Include="DTO\TeamSubmissionDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
@@ -565,6 +570,7 @@
     <Compile Include="ModelADO.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PerformanceModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthBearerAuthenticationProvider.cs" />
   </ItemGroup>
@@ -600,9 +606,14 @@
     <TypeScriptCompile Include="Client\Common\BaseCtrl.ts" />
     <TypeScriptCompile Include="Client\Common\GenericYesNoModalCtrl.ts" />
     <TypeScriptCompile Include="Client\Common\Notification.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\Instructor.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\Level.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\MsgType.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\Project.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\ReportModel.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\ReportRecord.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\School.ts" />
+    <TypeScriptCompile Include="Client\Common\POCO\Student.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\TeamSubmission.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\Role.ts" />
     <TypeScriptCompile Include="Client\Common\POCO\Team.ts" />
@@ -616,6 +627,7 @@
     <TypeScriptCompile Include="Client\Pages\Login\LoginCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\ManageProjects\ManageProjects.ts" />
     <TypeScriptCompile Include="Client\Pages\Projects\ProjectsCtrl.ts" />
+    <TypeScriptCompile Include="Client\Pages\Report\ReportCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\SubmitProjects\SubmitProjectsCtrl.ts" />
     <TypeScriptCompile Include="Client\Service\AuthService.ts" />
     <TypeScriptCompile Include="Client\Service\Session.ts" />
