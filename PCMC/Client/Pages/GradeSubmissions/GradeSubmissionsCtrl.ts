@@ -48,6 +48,7 @@ class GradeSubmissionsCtrl {
                if (!found) {
                    $scope.projects.submissions.push(data);
                }
+               $scope.tableParams = new NgTableParams({}, { dataset: $scope.projects.submissions });
                $scope.$apply();
            }
 

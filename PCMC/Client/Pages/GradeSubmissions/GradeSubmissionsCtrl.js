@@ -48,6 +48,7 @@ var GradeSubmissionsCtrl = (function () {
                 if (!found) {
                     $scope.projects.submissions.push(data);
                 }
+                $scope.tableParams = new NgTableParams({}, { dataset: $scope.projects.submissions });
                 $scope.$apply();
             }
         }.bind(this));
