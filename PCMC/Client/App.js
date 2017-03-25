@@ -240,7 +240,7 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
 /********************************************************
 SIGNAL R SETUP
 *********************************************************/
-    .value('backendServerUrl', 'http://localhost:60437/signalr')
+    .value('backendServerUrl', '/signalr')
     .factory('SignalRSrv', ['$rootScope', 'backendServerUrl',
   function ($rootScope, backendServerUrl) {
       signalr = {}
