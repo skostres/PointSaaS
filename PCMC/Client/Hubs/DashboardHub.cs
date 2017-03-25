@@ -77,7 +77,15 @@ namespace PCMC.Client.Hubs
                         Clients.Caller.updateNumberOfSubmissionsAwaitingGrades(NumberOfSubmissionsAwaitingGrades());
                         break;
                     case UserRole.Judge:
-                        Clients.Caller.updateNumberOfSubmissionsAwaitingGrades(NumberOfSubmissionsAwaitingGrades());
+                        JudgeTeamMap[] teamDB = db.JudgeTeamMap.Include("Team").Where(c => c.Judge.ID == userFromDB.ID).ToArray();
+                        int count = 0;
+                        foreach(JudgeTeamMap teamMap in teamDB)
+                        {
+                            Team team = teamMap.Team;
+                            IQueryable<TeamSubmission> submitDB = db.TeamSubmission.Include("Team").Include("Project").Where(c => c.Score == -1 && c.Team.ID == team.ID);
+                            count += submitDB.Select(c => c.ID).Count();
+                        }
+                        Clients.Caller.updateNumberOfSubmissionsAwaitingGrades(count);
                         break;
 
                     case UserRole.Participant:

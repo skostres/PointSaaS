@@ -91,7 +91,7 @@ namespace PCMC.Client.Hubs
                     db.SaveChanges();
                 } else
                 {
-                    sub = db.TeamSubmission.Find(tSub.First().ID);
+                    sub = db.TeamSubmission.Include("Team").Include("Project").Where(c=>c.ID == tSub.First().ID).First();
                     sub.RawZipSolution = Convert.FromBase64String(submission.RawZipSolution);
                     sub.Score = -1;
                     sub.GraderComment = "";

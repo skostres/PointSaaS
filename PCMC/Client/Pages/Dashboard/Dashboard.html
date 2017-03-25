@@ -23,7 +23,7 @@
 
             <div ng-switch-when="Admin" class="row">
                 <div class="col-lg-12">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-4">
                         <div class="panel panel-green">
                             <div class="panel-heading">
                                 <div class="row">
@@ -45,7 +45,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-4">
                         <div class="panel panel-blue">
                             <div class="panel-heading">
                                 <div class="row">
@@ -67,7 +67,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-4">
                         <div class="panel panel-orange">
                             <div class="panel-heading">
                                 <div class="row">
@@ -89,7 +89,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-4">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
@@ -111,7 +111,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-4">
                         <div class="panel panel-red">
                             <div class="panel-heading">
                                 <div class="row">
@@ -140,8 +140,8 @@
 
             <div ng-switch-when="Judge" class="row">
                 <div class="col-lg-12">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
+                    <div class="col-lg-4 col-md-4">
+                        <div class="panel" ng-class="{'panel-green': numberOfSubmissionsAwaitingGrades == 0, 'panel-red': numberOfSubmissionsAwaitingGrades != 0}">
                             <div class="panel-heading">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -170,7 +170,7 @@
 
             <div ng-switch-when="Participant" class="row">
                 <div class="col-lg-12">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-4 col-md-4">
                         <div class="panel" ng-class="{'panel-green': numberOfProjectsAwaitingSubmissions == 0, 'panel-red': numberOfProjectsAwaitingSubmissions != 0}">
                             <div class="panel-heading">
                                 <div class="row">
