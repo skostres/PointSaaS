@@ -70,3 +70,4 @@ var ReportCtrl = (function () {
     };
     return ReportCtrl;
 }());
+//# sourceMappingURL=ReportCtrl.js.map

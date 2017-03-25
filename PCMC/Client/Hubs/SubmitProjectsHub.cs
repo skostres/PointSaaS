@@ -86,7 +86,7 @@ namespace PCMC.Client.Hubs
 
                 if (tSub.Count() == 0)
                 {
-                    sub = new TeamSubmission() { Project = db.Projects.Where(c => c.ID == submission.Project.ID).First(), RawZipSolution = Convert.FromBase64String(submission.RawZipSolution), Score = -1, Team = teamAssigned };
+                    sub = new TeamSubmission() { Project = db.Projects.Where(c => c.ID == submission.Project.ID).First(), RawZipSolution = Convert.FromBase64String(submission.RawZipSolution), Score = -1, Team = teamAssigned, GraderComment="" };
                     db.TeamSubmission.Add(sub);
                     db.SaveChanges();
                 } else

@@ -76,7 +76,7 @@ namespace PCMC.Migrations
             context.Teams.AddOrUpdate(teams.First());
             School school = new School { ID = 1, Instructor = ins, Name = "Montgomery College", Teams = teams };
             context.Schools.AddOrUpdate(school);
-            context.JudgeTeamMap.Add(new JudgeTeamMap {ID=1,Judge= new User { ID = 3, FirstName = "Judge", LastName = "K=J", Password = "judge", Role = UserRole.Judge, Username = "judge" },Team= teams.First() });
+            context.JudgeTeamMap.AddOrUpdate(new JudgeTeamMap {ID=1,Judge= new User { ID = 3, FirstName = "Judge", LastName = "K=J", Password = "judge", Role = UserRole.Judge, Username = "judge" },Team= teams.First() });
             context.Students.AddOrUpdate(new Student { ID = 1, SchoolEnrolled = school, TeamAssigned = teams.First(), User = new User { ID = 2, FirstName = "Edward", LastName = "K", Password = "student", Role = UserRole.Participant, Username = "student" }});
             
             //new School {Instructor = new Instructor {Name="Alla",Phone="",Email="@" }, Name="Montgomery College", Teams = new List<Team> { new Team {ID=0,Name="Team2" } } }

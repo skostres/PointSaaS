@@ -44,3 +44,4 @@ var User = (function () {
     };
     return User;
 }());
+//# sourceMappingURL=User.js.map

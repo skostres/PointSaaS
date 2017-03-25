@@ -93,7 +93,9 @@ namespace PCMC.Client.Hubs
                         TeamSubmission record = db.TeamSubmission.Find(item.ID);
                         if (record != null)
                         {
+                            
                             record.Score = item.Score;
+                            record.GraderComment = item.GraderComment; //Vulnerable to XSS...
                             db.SaveChanges();
                         }
                         break;

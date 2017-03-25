@@ -6,3 +6,4 @@ var Team = (function () {
     }
     return Team;
 }());
+//# sourceMappingURL=Team.js.map

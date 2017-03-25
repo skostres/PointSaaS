@@ -18,6 +18,7 @@ namespace PCMC.DTO
                 this.Project = new ProjectDTO(sub.Project);
                 this.RawZipSolution = Convert.ToBase64String(sub.RawZipSolution);
                 this.Score = sub.Score;
+                this.GraderComment = sub.GraderComment; 
             }
         }
         public int ID { get; set; }
@@ -26,5 +27,7 @@ namespace PCMC.DTO
         public string RawZipSolution { get; set; } //File being submitted.
 
         public int Score { get; set; }
+
+        public string GraderComment { get; set; }
     }
 }

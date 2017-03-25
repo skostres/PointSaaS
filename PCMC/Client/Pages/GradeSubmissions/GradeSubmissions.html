@@ -20,7 +20,7 @@
 
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-10">
+            <div class="col-lg-12">
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover table-striped" ng-table="tableParams" show-filter="false">
 
@@ -34,10 +34,11 @@
                                 
                                 <td title="'Team Name'" sortable="'model.Name'">{{model.Team.Name}}</td>
                                 <td title="'Team Submission'"><span class="fa fa-download font-blue"><a style="cursor:pointer" ng-click="proj.downloadFile(model.Project.Name+'Participant-Submission',model.RawZipSolution);"> Inspect Submission</a></span></td>
-                                <td title="'Status'" ng-switch="model.Score == -1" sortable="'RawZipSolution'">
+                                <td title="'Status'" ng-switch="model.Score == -1" sortable="'Score'">
                                     <span ng-switch-when="true" class="fa fa-close font-red"> Not Graded</span>
                                     <div ng-switch-when="false"><span class="fa fa-check font-green"> Grade Inputted:</span> {{model.Score}}</div>
                                 </td>
+                                <td title="'Grader Comment'"  filter="{ GraderComment: 'text'}" sortable="'GraderComment'">{{model.GraderComment}}</td>
                                 <td title="'Actions'"><a style="cursor:pointer" ng-click="proj.addSubmissionModal(model)"><span class="fa fa-upload" style="color:green"></span> Grade Solution</a></td>
                             </tr>
                         </tbody>

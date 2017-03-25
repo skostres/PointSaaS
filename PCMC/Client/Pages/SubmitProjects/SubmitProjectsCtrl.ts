@@ -47,7 +47,7 @@ class SubmitProjectsCtrl {
             $scope.projects.list.map(function (proj: Project, index: number) {
                 // True if key doesn't exists
                 if (!(proj.ID in mapping)) {
-                    $scope.projects.submissions.push(new TeamSubmission(-1, null, proj, null, -1));
+                    $scope.projects.submissions.push(new TeamSubmission(-1, null, proj, null, -1,""));
                 } else {
                     $scope.projects.submissions.push(mapping[proj.ID]);
                 }
@@ -74,7 +74,7 @@ class SubmitProjectsCtrl {
 
                         // Upload Zip
                         if (result.uploadme1.src != "") {
-                            submitProjectsHub.invoke("addSubmission", $scope.currentUser, new TeamSubmission(0, result.uploadme1.src.data.split(",")[1], proj, null, 0));
+                            submitProjectsHub.invoke("addSubmission", $scope.currentUser, new TeamSubmission(0, result.uploadme1.src.data.split(",")[1], proj, null, 0, ""));
                         } else {
                             growl.warning("You must first make a submission!");
                         }

@@ -5,3 +5,4 @@ var MsgType;
     MsgType[MsgType["WARNING"] = 2] = "WARNING";
     MsgType[MsgType["ERROR"] = 3] = "ERROR";
 })(MsgType || (MsgType = {}));
+//# sourceMappingURL=MsgType.js.map

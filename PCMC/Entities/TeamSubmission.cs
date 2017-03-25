@@ -14,5 +14,6 @@ namespace PCMC.Entities
         public byte[] RawZipSolution { get; set; } //File being submitted.
 
         public int Score { get; set; }
+        public string GraderComment { get; set; }
     }
 }

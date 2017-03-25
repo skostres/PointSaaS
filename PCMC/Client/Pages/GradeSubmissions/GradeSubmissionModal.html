@@ -10,9 +10,13 @@
 
                 <div class="form-group">
                     <label for="age" class="col-sm-2 control-label">Obtained Points:</label>
-                    <div class="col-sm-10">
+                    <div class="col-md-10">
                         <input type="number" ng-model="param1" min="-1" required value="{{model.Score}}" /> Current Value: {{model.Score}}<br />
                         -1 represents ungraded state, 0-to-{{model.Project.MaxScore}} (inclusive) are valid inputs. Integer input only.
+                    </div>
+                    <label for="GraderComment" class="col-sm-2 control-label">Grader Comments (Hidden from participant):</label>
+                    <div class="col-md-10">
+                        <textarea ng-model="model.GraderComment" name="GraderComment">{{model.GraderComment}}</textarea>
                     </div>
                     <div class="col-sm-10">
                         <a style="cursor:pointer" ng-click="downloadFile(model.Project.Name+'-Participant-Submission',model.RawZipSolution);"><span class="fa fa-download"></span> View Submission</a>
