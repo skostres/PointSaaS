@@ -66,13 +66,16 @@ namespace PCMC.Client.Hubs
                         break;
                     case UserRole.Judge:
                         IQueryable<JudgeTeamMap> teamDB = db.JudgeTeamMap.Where(c => c.Judge.ID == userDB.ID);
-                        ICollection<Team> teamAssignments = teamDB.Select(c => c.Team).Cast<Team>().ToList();
-
-                        List<TeamSubmission> listDB = db.TeamSubmission.Where(c => teamAssignments.Contains(c.Team)).ToList();
-                        foreach (var sub in listDB)
+                        Team[] teamAssignments = teamDB.Select(c => c.Team).Cast<Team>().ToList().ToArray();
+                        foreach(Team team in teamAssignments)
                         {
-                            listToBeReturned.Add(new TeamSubmissionDTO(sub));
+                            List<TeamSubmission> listDB = db.TeamSubmission.Include("Project").Include("Team").Where(c => c.Team.ID == team.ID).ToList(); //List of submissions for this team
+                            foreach (var sub in listDB)
+                            {
+                                listToBeReturned.Add(new TeamSubmissionDTO(sub));
+                            }
                         }
+                        
                         Clients.Caller.submissionTeamPoll(listToBeReturned);
                         break;
                 }
@@ -87,22 +90,44 @@ namespace PCMC.Client.Hubs
 
             if(userDB != null)
             {
-                switch(userDB.Role)
+                TeamSubmission record = db.TeamSubmission.Include("Team").Include("Project").Where(c=>c.ID == item.ID).First();
+                Team teamAssigned = record.Team;
+                switch (userDB.Role)
                 {
                     case UserRole.Admin:
-                        TeamSubmission record = db.TeamSubmission.Find(item.ID);
                         if (record != null)
                         {
                             
                             record.Score = item.Score;
                             record.GraderComment = item.GraderComment; //Vulnerable to XSS...
                             db.SaveChanges();
+                            BroadcastGraders("JudgeGroupTeam" + teamAssigned.ID, teamAssigned, new TeamSubmissionDTO(record));
                         }
                         break;
                     case UserRole.Judge:
+                        // Verify judge can edit this submission, update it, notify all parties
+                        JudgeTeamMap[] mapping = db.JudgeTeamMap.Where(c=>c.Judge.ID == userDB.ID && c.Team.ID == record.Team.ID).ToArray();
+
+                        if (mapping.ToArray().Length >= 1)
+                        {
+                            // Judge is authorized to grade this
+                            if (record != null)
+                            {
+                                record.Score = item.Score;
+                                record.GraderComment = item.GraderComment; //Vulnerable to XSS...
+                                db.SaveChanges();
+                                BroadcastGraders("JudgeGroupTeam" + teamAssigned.ID, teamAssigned, new TeamSubmissionDTO(record));
+                            }
+                        }
                         break;
                 }
             }
+        }
+
+        private void BroadcastGraders(string judgeGroup, Team team, TeamSubmissionDTO submission)
+        {
+            Clients.Group("Admins").updatedSubmission(submission);    //Admins see all..
+            Clients.Group(judgeGroup).updatedSubmission(submission);
         }
 
         /*

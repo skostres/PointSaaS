@@ -94,6 +94,7 @@ namespace PCMC.Client.Hubs
                     sub = db.TeamSubmission.Find(tSub.First().ID);
                     sub.RawZipSolution = Convert.FromBase64String(submission.RawZipSolution);
                     sub.Score = -1;
+                    sub.GraderComment = "";
                     db.SaveChanges();
                     //Alert Team members of submission..
                 }

@@ -42,6 +42,7 @@ var GradeSubmissionsCtrl = (function () {
                         value.RawZipSolution = data.RawZipSolution;
                         value.Score = data.Score;
                         value.Project = data.Project;
+                        value.GraderComment = data.GraderComment;
                         found = true;
                     }
                 });
