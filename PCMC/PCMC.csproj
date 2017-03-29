@@ -399,6 +399,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\logos\angular.png" />
+    <Content Include="Content\logos\favicon.ico" />
     <Content Include="Content\plugins\angular-growl.css" />
     <Content Include="Content\plugins\angular-growl.min.css" />
     <Content Include="Content\plugins\epoch.min.css" />
