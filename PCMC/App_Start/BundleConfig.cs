@@ -64,7 +64,7 @@ namespace PCMC
                      "~/scripts/plugins/Tableexport/table-export-directive.js",
                     "~/scripts/plugins/Tableexport/table-export-option-directive.js",
                     "~/scripts/plugins/Tableexport/smartTableDirectives.js",
-                    "~/scripts/plugins/Tableexport/tableExport.js",
+                    "~/scripts/plugins/Tableexport/table-export.js",
                     "~/scripts/plugins/Tableexport/jquery.base64.js",
                     "~/scripts/plugins/Tableexport/html2canvas.js",
                     "~/scripts/plugins/Tableexport/jspdf/libs/sprintf.js",

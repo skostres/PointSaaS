@@ -287,8 +287,16 @@ THE SOFTWARE.*/
 
 					var xls = document.createElement("a");
 					xls.target = '_blank';
-					xls.download = defaults.tableName+'.xls';
-					xls.href = 'data:application/vnd.ms-'+defaults.type+';filename=exportData.doc;'+base64data;
+					if (defaults.type == 'excel') {
+					    xls.download = defaults.tableName + '.xls';
+					    xls.href = 'data:application/vnd.ms-' + defaults.type + ';filename=exportData.xls;' + base64data;
+					}
+					else {
+					    xls.download = defaults.tableName + '.doc';
+					    xls.href = 'data:application/vnd.ms-' + defaults.type + ';filename=exportData.doc;' + base64data;
+                    }
+					
+					document.body.appendChild(xls);
 					xls.click();
 
 				}else if(defaults.type == 'png'){
