@@ -1,4 +1,4 @@
-﻿var PCMCApp = angular.module("mainApp", ['ui.router', 'ngAnimate', 'SignalR', 'ng.epoch', 'n3-pie-chart', 'angularModalService', "ng-file-model", 'ui.bootstrap', 'angular-growl', 'ngTable'])
+﻿var PCMCApp = angular.module("mainApp", ['ui.router', 'ngAnimate', 'SignalR', 'ng.epoch', 'n3-pie-chart', 'angularModalService', "ng-file-model", 'ui.bootstrap', 'angular-growl', 'ngTable', 'ceibo.components.table.export'])
     .constant('AUTH_EVENTS', {
         loginSuccess: 'auth-login-success',
         loginFailed: 'auth-login-failed',
@@ -19,7 +19,7 @@
 PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     $stateProvider.state('Login', {
         url: '/',
-        controller: function ($scope, $rootScope,$state, AUTH_EVENTS) {
+        controller: function ($scope, $rootScope, $state, AUTH_EVENTS) {
             if ($scope.currentUser == null || $scope.currentUser.ID == null)
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             else
@@ -233,7 +233,7 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     })
 
 /* ALERTS CONFIG */
-.config(['growlProvider', function(growlProvider) {
+.config(['growlProvider', function (growlProvider) {
     growlProvider.globalTimeToLive(5000);
     growlProvider.globalPosition('bottom-right');
 }])
@@ -245,7 +245,7 @@ SIGNAL R SETUP
   function ($rootScope, backendServerUrl) {
       signalr = {}
 
-      signalr.connection = $.hubConnection(backendServerUrl, {logging: true});
+      signalr.connection = $.hubConnection(backendServerUrl, { logging: true });
       return signalr;
   }])
     .controller('PerformanceDataController', ['$scope', 'backendServerUrl', 'SignalRSrv',
@@ -253,7 +253,7 @@ SIGNAL R SETUP
       console.log('trying to connect to service')
       var connection = SignalRSrv.connection;
       var performanceDataHub = connection.createHubProxy('performanceHub');
-      
+
 
       //Placeholders until data is pushed.
       $scope.currentRamNumber = 68;
@@ -267,75 +267,75 @@ SIGNAL R SETUP
           { label: 'Layer 6', values: [] }
       ];
 
-      $scope.options = { thickness: 10, mode: "gauge", total: 100};
+      $scope.options = { thickness: 10, mode: "gauge", total: 100 };
       $scope.data = [
           { label: "CPU", value: 78, color: "#d62728", suffix: "%" }
       ];
-      
-          console.log('connected to service')
+
+      console.log('connected to service')
       //performanceDataHub.invoke("Heartbeat");
-          performanceDataHub.on('numberOfUsers', function (data) {
-              $scope.numberOfUsers = data;
+      performanceDataHub.on('numberOfUsers', function (data) {
+          $scope.numberOfUsers = data;
+      })
+      performanceDataHub.on('broadcastPerformance', function (data) {
+          var timestamp = ((new Date()).getTime() / 1000) | 0;
+          var chartEntry = [];
+
+          data.forEach(function (dataItem) {
+
+              switch (dataItem.categoryName) {
+                  case "Processor":
+                      $scope.cpuData = dataItem.value;
+                      chartEntry.push({ time: timestamp, y: dataItem.value });
+                      $scope.data = [
+                          { label: "CPU", value: dataItem.value, color: "#d62728", suffix: "%" }
+                      ];
+                      console.log($scope.data)
+                      break;
+
+                  case "Memory":
+                      $scope.currentRamNumber = dataItem.value;
+                      chartEntry.push({ time: timestamp, y: dataItem.value });
+                      break;
+
+                  case "Network In":
+                      $scope.netInData = dataItem.value.toFixed(2);
+                      chartEntry.push({ time: timestamp, y: dataItem.value });
+                      break;
+
+                  case "Network Out":
+                      $scope.netOutData = dataItem.value.toFixed(2);
+                      chartEntry.push({ time: timestamp, y: dataItem.value });
+                      break;
+
+                  case "Disk Read Bytes/Sec":
+                      $scope.diskReaddData = dataItem.value.toFixed(3);
+                      chartEntry.push({ time: timestamp, y: dataItem.value });
+                      break;
+
+                  case "Disk Write Bytes/Sec":
+                      $scope.diskWriteData = dataItem.value.toFixed(3);
+                      chartEntry.push({ time: timestamp, y: dataItem.value });
+                      break;
+
+                  default:
+                      break;
+                      //default code block
+              }
+              $scope.$apply()
           })
-          performanceDataHub.on('broadcastPerformance', function (data) {
-              var timestamp = ((new Date()).getTime() / 1000) | 0;
-              var chartEntry = [];
 
-              data.forEach(function (dataItem) {
 
-                  switch(dataItem.categoryName) {
-                      case "Processor":
-                          $scope.cpuData = dataItem.value;
-                          chartEntry.push({ time: timestamp, y: dataItem.value });
-                          $scope.data = [
-                              { label: "CPU", value: dataItem.value, color: "#d62728", suffix: "%" }
-                          ];
-                          console.log($scope.data)
-                          break;
+          $scope.realtimeAreaFeed = chartEntry;
+      });
+      connection.start().done(function () { console.log('Connection established!'); });
 
-                      case "Memory":
-                          $scope.currentRamNumber = dataItem.value;
-                          chartEntry.push({ time: timestamp, y: dataItem.value });
-                          break;
-
-                      case "Network In":
-                          $scope.netInData = dataItem.value.toFixed(2);
-                          chartEntry.push({ time: timestamp, y: dataItem.value });
-                          break;
-
-                      case "Network Out":
-                          $scope.netOutData = dataItem.value.toFixed(2);
-                          chartEntry.push({ time: timestamp, y: dataItem.value });
-                          break;
-
-                      case "Disk Read Bytes/Sec":
-                          $scope.diskReaddData = dataItem.value.toFixed(3);
-                          chartEntry.push({ time: timestamp, y: dataItem.value });  
-                          break;
-
-                      case "Disk Write Bytes/Sec":
-                          $scope.diskWriteData = dataItem.value.toFixed(3);
-                          chartEntry.push({ time: timestamp, y: dataItem.value });
-                          break;
-
-                      default:
-                          break;
-                          //default code block
-                  }
-                  $scope.$apply()
-              })
-          
-
-              $scope.realtimeAreaFeed = chartEntry;
-          });
-              connection.start().done(function () { console.log( 'Connection established!' ); });
-
-          $scope.areaAxes = ['left','right','bottom'];
-      }
+      $scope.areaAxes = ['left', 'right', 'bottom'];
+  }
     ])
     .run(function ($rootScope, AUTH_EVENTS, AuthService, SignalRSrv, SystemSrv) {
         $rootScope.$on('$stateChangeStart', function (event, next) {
-            
+
 
             var connection = SignalRSrv.connection
             if (connection && connection.state && connection.state !== 4 /* disconnected */) {
@@ -362,6 +362,4 @@ SIGNAL R SETUP
 
         });
 
-    })
-
-
+    });

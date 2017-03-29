@@ -18,6 +18,7 @@ namespace PCMC
             /*bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/scripts/modernizr-*"));
             */
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/scripts/bootstrap.js",
                       "~/scripts/respond.js"));
@@ -58,6 +59,18 @@ namespace PCMC
                     "~/scripts/angular-animate.min.js",
                      "~/scripts/angular-ui-router.js",
 
+                     //Tableexport
+                     
+                     "~/scripts/plugins/Tableexport/table-export-directive.js",
+                    "~/scripts/plugins/Tableexport/table-export-option-directive.js",
+                    "~/scripts/plugins/Tableexport/smartTableDirectives.js",
+                    "~/scripts/plugins/Tableexport/tableExport.js",
+                    "~/scripts/plugins/Tableexport/jquery.base64.js",
+                    "~/scripts/plugins/Tableexport/html2canvas.js",
+                    "~/scripts/plugins/Tableexport/jspdf/libs/sprintf.js",
+                    "~/scripts/plugins/Tableexport/jspdf/jspdf.js",
+                    "~/scripts/plugins/Tableexport/jspdf/libs/base64.js",
+
                      // UI Bootstrap
                      "~/scripts/angular-ui/ui-bootstrap-tpls.min.js",
                      "~/scripts/angular-ui/ui-bootstrap.min.js",
@@ -78,6 +91,8 @@ namespace PCMC
                      "~/scripts/plugins/ng-file-model/ng-file-model.js",
 
                      "~/scripts/plugins/angular-growl/angular-growl.min.js",
+
+                     
 
                      "~/scripts/angular-signalr-hub.min.js",
                      "~/Client/Common/POCO/Level.js",

@@ -513,6 +513,15 @@
     <Content Include="scripts\plugins\modal-service\angular-modal-service.js.map" />
     <Content Include="scripts\plugins\modal-service\angular-modal-service.min.js.map" />
     <Content Include="scripts\plugins\ng-table\ng-table.js.map" />
+    <Content Include="scripts\plugins\Tableexport\jspdf\jspdf.js" />
+    <Content Include="scripts\plugins\Tableexport\jspdf\libs\base64.js" />
+    <Content Include="scripts\plugins\Tableexport\jspdf\libs\sprintf.js" />
+    <Content Include="scripts\plugins\Tableexport\smartTableDirectives.js" />
+    <Content Include="scripts\plugins\Tableexport\table-export-directive.js" />
+    <Content Include="scripts\plugins\Tableexport\table-export-option-directive.js" />
+    <Content Include="scripts\plugins\Tableexport\table-export.js" />
+    <Content Include="scripts\plugins\Tableexport\tableExport.jquery.json" />
+    <Content Include="scripts\plugins\Tableexport\README.md" />
     <None Include="v8\Noesis.Javascript.x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -523,6 +532,9 @@
     <Content Include="scripts\plugins\n3-pie-chart\pie-chart.min.js" />
     <Content Include="scripts\plugins\ng-file-model\ng-file-model.js" />
     <Content Include="scripts\plugins\ng-table\ng-table.js" />
+    <Content Include="scripts\plugins\Tableexport\html2canvas.js" />
+    <Content Include="scripts\plugins\Tableexport\jquery.base64.js" />
+    <Content Include="scripts\plugins\Tableexport\tableExport.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
