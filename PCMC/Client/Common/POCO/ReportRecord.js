@@ -17,4 +17,3 @@ var ReportRecord = (function () {
     }
     return ReportRecord;
 }());
-//# sourceMappingURL=ReportRecord.js.map

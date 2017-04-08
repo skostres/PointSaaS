@@ -9,8 +9,7 @@
     })
     .constant('USER_ROLES', {
         admin: "Admin",
-        judge: "Judge",
-        participant: "Participant",
+        user: "User",
         guest: "Guest",
         all: "*"
     });
@@ -34,38 +33,21 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
         templateUrl: 'Client/Pages/Dashboard/Dashboard.html',
         controller: "DashboardCtrl",
         data: {
-            authorizedRoles: [USER_ROLES.admin, USER_ROLES.judge, USER_ROLES.participant]
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
         }
     });
 
-    $stateProvider.state('Performance', {
-        url: '/Performance',
-        templateUrl: 'Client/Pages/PerformanceDataController/PerformanceDataController.html',
-        controller: "PerformanceDataController",
-        data: {
-            authorizedRoles: [USER_ROLES.admin]
-        }
-    });
 
-    $stateProvider.state('Report', {
-        url: '/Report',
-        templateUrl: 'Client/Pages/Report/Report.html',
-        controller: "ReportCtrl",
-        data: {
-            authorizedRoles: [USER_ROLES.admin]
-        }
-    });
-
-    $stateProvider.state('Projects', {
+    $stateProvider.state('Instances', {
         url: '/Projects',
-        templateUrl: 'Client/Pages/Projects/Projects.html',
-        controller: "ProjectsCtrl",
+        templateUrl: 'Client/Pages/Instances/Instances.html',
+        controller: "InstancesCtrl",
         data: {
-            authorizedRoles: [USER_ROLES.admin, USER_ROLES.judge]
+            authorizedRoles: [USER_ROLES.user]
         }
     });
 
-
+    /*
     $stateProvider.state('ManageProjects', {
         url: '/ManageProjects',
         templateUrl: 'Client/Pages/ManageProjects/ManageProjects.html',
@@ -92,8 +74,8 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
             authorizedRoles: [USER_ROLES.participant]
         }
     })
-
-        .state('Logout', {
+    */
+    $stateProvider.state('Logout', {
             url: '/Logout',
             controller: function ($scope, $state, $rootScope, AUTH_EVENTS) {
                 if ($scope.currentUser != null)
@@ -158,12 +140,12 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     .controller("GenericYesNoModalCtrl", GenericYesNoModalCtrl)
     .controller("NavigationCtlr", NavigationCtrl)
     .controller("DashboardCtrl", DashboardCtrl)
-    .controller("ProjectsCtrl", ProjectsCtrl)
-    .controller("NotificationsCtrl", NotificationsCtrl)
-    .controller("GradeSubmissionsCtrl", GradeSubmissionsCtrl)
-    .controller("ManageProjectsCtrl", ManageProjectsCtrl)
-    .controller("SubmitProjectsCtrl", SubmitProjectsCtrl)
-    .controller("ReportCtrl", ReportCtrl)
+    .controller("InstancesCtrl", InstancesCtrl)
+    //.controller("NotificationsCtrl", NotificationsCtrl)
+    //.controller("GradeSubmissionsCtrl", GradeSubmissionsCtrl)
+    //.controller("ManageProjectsCtrl", ManageProjectsCtrl)
+    //.controller("SubmitProjectsCtrl", SubmitProjectsCtrl)
+    //.controller("ReportCtrl", ReportCtrl)
     .controller('AuthCtrl', function ($scope,
                                       USER_ROLES,
                                       AuthService) {
@@ -248,91 +230,6 @@ SIGNAL R SETUP
       signalr.connection = $.hubConnection(backendServerUrl, { logging: true });
       return signalr;
   }])
-    .controller('PerformanceDataController', ['$scope', 'backendServerUrl', 'SignalRSrv',
-  function ($scope, backendServerUrl, SignalRSrv) {
-      console.log('trying to connect to service')
-      var connection = SignalRSrv.connection;
-      var performanceDataHub = connection.createHubProxy('performanceHub');
-
-
-      //Placeholders until data is pushed.
-      $scope.currentRamNumber = 68;
-
-      $scope.realtimeArea = [
-          { label: 'Layer 1', values: [] },
-          { label: 'Layer 2', values: [] },
-          { label: 'Layer 3', values: [] },
-          { label: 'Layer 4', values: [] },
-          { label: 'Layer 5', values: [] },
-          { label: 'Layer 6', values: [] }
-      ];
-
-      $scope.options = { thickness: 10, mode: "gauge", total: 100 };
-      $scope.data = [
-          { label: "CPU", value: 78, color: "#d62728", suffix: "%" }
-      ];
-
-      console.log('connected to service')
-      //performanceDataHub.invoke("Heartbeat");
-      performanceDataHub.on('numberOfUsers', function (data) {
-          $scope.numberOfUsers = data;
-      })
-      performanceDataHub.on('broadcastPerformance', function (data) {
-          var timestamp = ((new Date()).getTime() / 1000) | 0;
-          var chartEntry = [];
-
-          data.forEach(function (dataItem) {
-
-              switch (dataItem.categoryName) {
-                  case "Processor":
-                      $scope.cpuData = dataItem.value;
-                      chartEntry.push({ time: timestamp, y: dataItem.value });
-                      $scope.data = [
-                          { label: "CPU", value: dataItem.value, color: "#d62728", suffix: "%" }
-                      ];
-                      console.log($scope.data)
-                      break;
-
-                  case "Memory":
-                      $scope.currentRamNumber = dataItem.value;
-                      chartEntry.push({ time: timestamp, y: dataItem.value });
-                      break;
-
-                  case "Network In":
-                      $scope.netInData = dataItem.value.toFixed(2);
-                      chartEntry.push({ time: timestamp, y: dataItem.value });
-                      break;
-
-                  case "Network Out":
-                      $scope.netOutData = dataItem.value.toFixed(2);
-                      chartEntry.push({ time: timestamp, y: dataItem.value });
-                      break;
-
-                  case "Disk Read Bytes/Sec":
-                      $scope.diskReaddData = dataItem.value.toFixed(3);
-                      chartEntry.push({ time: timestamp, y: dataItem.value });
-                      break;
-
-                  case "Disk Write Bytes/Sec":
-                      $scope.diskWriteData = dataItem.value.toFixed(3);
-                      chartEntry.push({ time: timestamp, y: dataItem.value });
-                      break;
-
-                  default:
-                      break;
-                      //default code block
-              }
-              $scope.$apply()
-          })
-
-
-          $scope.realtimeAreaFeed = chartEntry;
-      });
-      connection.start().done(function () { console.log('Connection established!'); });
-
-      $scope.areaAxes = ['left', 'right', 'bottom'];
-  }
-    ])
     .run(function ($rootScope, AUTH_EVENTS, AuthService, SignalRSrv, SystemSrv) {
         $rootScope.$on('$stateChangeStart', function (event, next) {
 

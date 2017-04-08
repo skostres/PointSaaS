@@ -7,4 +7,3 @@ var Student = (function () {
     }
     return Student;
 }());
-//# sourceMappingURL=Student.js.map

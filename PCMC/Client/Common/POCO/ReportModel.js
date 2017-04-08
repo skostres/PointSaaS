@@ -8,4 +8,3 @@ var ReportModel = (function () {
     }
     return ReportModel;
 }());
-//# sourceMappingURL=ReportModel.js.map

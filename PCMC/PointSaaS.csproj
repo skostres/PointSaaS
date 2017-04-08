@@ -382,15 +382,9 @@
     <Content Include="Client\App.js" />
     <Content Include="Client\Pages\Dashboard\Dashboard.html" />
     <Content Include="Client\Navigation\Navigation.html" />
-    <Content Include="Client\Pages\GradeSubmissions\GradeSubmissionModal.html" />
-    <Content Include="Client\Pages\GradeSubmissions\GradeSubmissions.html" />
+    <Content Include="Client\Pages\Instances\InstancesModal.html" />
+    <Content Include="Client\Pages\Instances\Instances.html" />
     <Content Include="Client\Pages\Login\Login.html" />
-    <Content Include="Client\Pages\ManageProjects\ManageProjects.html" />
-    <Content Include="Client\Pages\PerformanceDataController\PerformanceDataController.html" />
-    <Content Include="Client\Pages\Projects\AddProjectModal.html" />
-    <Content Include="Client\Pages\Projects\DeleteProjectModal.html" />
-    <Content Include="Client\Pages\Projects\EditProjectModal.html" />
-    <Content Include="Client\Pages\Projects\Projects.html" />
     <Content Include="Client\Pages\Report\Report.html" />
     <Content Include="Client\Pages\SubmitProjects\AddSubmissionModal.html" />
     <Content Include="Client\Pages\SubmitProjects\SubmitProjects.html" />
@@ -400,6 +394,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\logos\angular.png" />
     <Content Include="Content\logos\favicon.ico" />
+    <Content Include="Content\logos\logo_medium.png" />
     <Content Include="Content\plugins\angular-growl.css" />
     <Content Include="Content\plugins\angular-growl.min.css" />
     <Content Include="Content\plugins\epoch.min.css" />
@@ -543,51 +538,27 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Client\Hubs\DashboardHub.cs" />
-    <Compile Include="Client\Hubs\GradeSubmissionsHub.cs" />
-    <Compile Include="Client\Hubs\PerformanceHub.cs" />
-    <Compile Include="Client\Hubs\ProjectsHub.cs" />
-    <Compile Include="Client\Hubs\ReportHub.cs" />
-    <Compile Include="Client\Hubs\SubmitProjectsHub.cs" />
+    <Compile Include="Client\Hubs\CommunicationHub.cs" />
+    <Compile Include="Client\Hubs\HelperMethods.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\CompDBContext.cs" />
-    <Compile Include="DTO\InstructorDTO.cs" />
-    <Compile Include="DTO\MsgTypeDTO.cs" />
-    <Compile Include="DTO\ProjectDTO.cs" />
-    <Compile Include="DTO\SchoolDTO.cs" />
-    <Compile Include="DTO\StudentDTO.cs" />
-    <Compile Include="DTO\TeamDTO.cs" />
-    <Compile Include="DTO\TeamSubmissionDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserRoleDTO.cs" />
-    <Compile Include="Entities\Instructor.cs" />
-    <Compile Include="Entities\JudgeTeamMap.cs" />
-    <Compile Include="Entities\Level.cs" />
-    <Compile Include="Entities\School.cs" />
-    <Compile Include="Entities\Student.cs" />
-    <Compile Include="Entities\Team.cs" />
-    <Compile Include="Entities\Project.cs" />
-    <Compile Include="Entities\TeamSubmission.cs" />
+    <Compile Include="Entities\EmailQueue.cs" />
+    <Compile Include="Entities\GlobalSettings.cs" />
+    <Compile Include="Entities\Instances.cs" />
+    <Compile Include="Entities\InstanceTypes.cs" />
+    <Compile Include="Entities\ServerLocations.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UserRole.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703031902480_Initial.cs" />
-    <Compile Include="Migrations\201703031902480_Initial.Designer.cs">
-      <DependentUpon>201703031902480_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703250418547_TeamSubmission-Added-Comments.cs" />
-    <Compile Include="Migrations\201703250418547_TeamSubmission-Added-Comments.Designer.cs">
-      <DependentUpon>201703250418547_TeamSubmission-Added-Comments.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelADO.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\PerformanceModel.cs" />
-    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthBearerAuthenticationProvider.cs" />
   </ItemGroup>
@@ -640,10 +611,8 @@
     <TypeScriptCompile Include="Client\Navigation\NavigationCtrl.ts" />
     <Content Include="Client\Notifications\Notification.html" />
     <TypeScriptCompile Include="Client\Notifications\NotificationsCtrl.ts" />
-    <TypeScriptCompile Include="Client\Pages\GradeSubmissions\GradeSubmissionsCtrl.ts" />
+    <TypeScriptCompile Include="Client\Pages\Instances\InstancesCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\Login\LoginCtrl.ts" />
-    <TypeScriptCompile Include="Client\Pages\ManageProjects\ManageProjects.ts" />
-    <TypeScriptCompile Include="Client\Pages\Projects\ProjectsCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\Report\ReportCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\SubmitProjects\SubmitProjectsCtrl.ts" />
     <TypeScriptCompile Include="Client\Service\AuthService.ts" />
@@ -663,14 +632,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703031902480_Initial.resx">
-      <DependentUpon>201703031902480_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703250418547_TeamSubmission-Added-Comments.resx">
-      <DependentUpon>201703250418547_TeamSubmission-Added-Comments.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

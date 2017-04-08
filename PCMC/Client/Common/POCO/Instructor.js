@@ -1,6 +1,6 @@
 /*
-*  An Instructor class used to retain information sent from the server
-*/
+ *  An Instructor class used to retain information sent from the server
+ */
 var Instructor = (function () {
     function Instructor(id, name, email, phone) {
         this.ID = id;
@@ -10,4 +10,3 @@ var Instructor = (function () {
     }
     return Instructor;
 }());
-//# sourceMappingURL=Instructor.js.map

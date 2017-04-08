@@ -3,6 +3,7 @@
         this.FirstName = null;
         this.LastName = null;
         this.ID = null;
+        this.Email = null;
         this.Username = null;
         this.Password = null;
         this.UserRole = null;
@@ -14,6 +15,7 @@
     public Password: string;
     public Username: string;
     public UserRole: Role;
+    public Email: string;
     ////////////////////////
     public roleStr: string;
 
@@ -21,8 +23,7 @@
         var str; 
         switch (this.UserRole) {
             case Role.Admin: str = "Admin"; break;
-            case Role.Judge: str = "Judge"; break;
-            case Role.Participant: str = "Participant"; break;
+            case Role.User: str = "User"; break;
             default: str = "Unknown Role";
         }
 
@@ -33,14 +34,16 @@
         this.FirstName = null;
         this.LastName = null;
         this.ID = null;
+        this.Email = null;
         this.Username = null;
         this.Password = null;
         this.UserRole = null;
         this.roleStr = null;
     }
-    public set(userId: number, LastName: string, FirstName: string, Password: string, Username: string, userRole: Role) {
+    public set(userId: number, LastName: string, FirstName: string, Email: string, Password: string, Username: string, userRole: Role) {
         this.FirstName = FirstName;
         this.LastName = LastName;
+        this.Email = Email;
         this.ID = userId;
         this.Username = Username;
         this.Password = Password;

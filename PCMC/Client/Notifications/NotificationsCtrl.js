@@ -43,4 +43,3 @@ var NotificationsCtrl = (function (_super) {
     };
     return NotificationsCtrl;
 }(BaseCtrl));
-//# sourceMappingURL=NotificationsCtrl.js.map

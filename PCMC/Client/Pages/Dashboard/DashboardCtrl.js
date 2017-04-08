@@ -50,16 +50,9 @@ var DashboardCtrl = (function () {
             });
         }
         // Admn / Judge relevant data
-        if ($scope.currentUser.UserRole == Role.Admin || $scope.currentUser.UserRole == Role.Judge) {
+        if ($scope.currentUser.UserRole == Role.Admin || $scope.currentUser.UserRole == Role.User) {
             dashboardHub.on('updateNumberOfSubmissionsAwaitingGrades', function (data) {
                 $scope.numberOfSubmissionsAwaitingGrades = data;
-                $scope.$apply();
-            });
-        }
-        // Participant relevant data
-        if ($scope.currentUser.UserRole == Role.Participant) {
-            dashboardHub.on('updateNumberOfProjectsAwaitingSubmissions', function (data) {
-                $scope.numberOfProjectsAwaitingSubmissions = data;
                 $scope.$apply();
             });
         }
@@ -78,4 +71,3 @@ var DashboardCtrl = (function () {
     ;
     return DashboardCtrl;
 }());
-//# sourceMappingURL=DashboardCtrl.js.map

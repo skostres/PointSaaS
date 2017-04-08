@@ -24,12 +24,7 @@ namespace PCMC
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
         public virtual DbSet<Instructor> Instructors { get; set; }
-        public virtual DbSet<JudgeTeamMap> JudgeTeamMap { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<School> Schools { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<Team> Teams { get; set; }
-        public virtual DbSet<TeamSubmission> TeamSubmission { get; set; }
+        
         public virtual DbSet<User> User { get; set; }
     }
 

@@ -126,4 +126,3 @@ var GradeSubmissionsCtrl = (function () {
     };
     return GradeSubmissionsCtrl;
 }());
-//# sourceMappingURL=GradeSubmissionsCtrl.js.map

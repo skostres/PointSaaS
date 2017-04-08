@@ -11,4 +11,3 @@ var Session = (function () {
     };
     return Session;
 }());
-//# sourceMappingURL=Session.js.map

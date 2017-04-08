@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCMC", "PCMC\PCMC.csproj", "{F6E64384-0CA5-4A13-804E-6478E62D6D28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointSaaS", "PCMC\PointSaaS.csproj", "{F6E64384-0CA5-4A13-804E-6478E62D6D28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

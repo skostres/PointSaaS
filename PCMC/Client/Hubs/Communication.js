@@ -57,4 +57,3 @@ var Communication = (function () {
     }
     return Communication;
 }());
-//# sourceMappingURL=Communication.js.map

@@ -3,6 +3,7 @@ var User = (function () {
         this.FirstName = null;
         this.LastName = null;
         this.ID = null;
+        this.Email = null;
         this.Username = null;
         this.Password = null;
         this.UserRole = null;
@@ -14,11 +15,8 @@ var User = (function () {
             case Role.Admin:
                 str = "Admin";
                 break;
-            case Role.Judge:
-                str = "Judge";
-                break;
-            case Role.Participant:
-                str = "Participant";
+            case Role.User:
+                str = "User";
                 break;
             default: str = "Unknown Role";
         }
@@ -28,14 +26,16 @@ var User = (function () {
         this.FirstName = null;
         this.LastName = null;
         this.ID = null;
+        this.Email = null;
         this.Username = null;
         this.Password = null;
         this.UserRole = null;
         this.roleStr = null;
     };
-    User.prototype.set = function (userId, LastName, FirstName, Password, Username, userRole) {
+    User.prototype.set = function (userId, LastName, FirstName, Email, Password, Username, userRole) {
         this.FirstName = FirstName;
         this.LastName = LastName;
+        this.Email = Email;
         this.ID = userId;
         this.Username = Username;
         this.Password = Password;
@@ -44,4 +44,3 @@ var User = (function () {
     };
     return User;
 }());
-//# sourceMappingURL=User.js.map

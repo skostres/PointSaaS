@@ -1,23 +1,16 @@
 /// <reference path="../../../scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="../../../scripts/typings/jquery/jquery.d.ts" />
-var SubmitProjectsCtrl = (function () {
-    function SubmitProjectsCtrl($scope, $state, SignalRSrv, ModalService, growl, NgTableParams) {
+var GradeSubmissionsCtrl = (function () {
+    function GradeSubmissionsCtrl($scope, $state, SignalRSrv, ModalService, growl, NgTableParams) {
         //$scope.state = $state;
         $scope.projects = {};
         $scope.projects.list = new Array();
+        $scope.score = 0;
         // SignalR Setup
         console.log('trying to connect to service');
         var connection = SignalRSrv.connection;
         var projectsHub = connection.createHubProxy('projectsHub');
-        var submitProjectsHub = connection.createHubProxy('submitProjectsHub');
-        projectsHub.on('projectListPoll', function (data) {
-            // alert(data);
-            // ProjectsCtrl.downloadFile(data[0].Name+'Judge-Instructions', data[0].RawZipFileJudges);
-            $scope.projects.list = data;
-            submitProjectsHub.invoke("pollTeamSubmissions", $scope.currentUser);
-            //ngAlertsMngr.add({ msg: "Project List Changed/Updated", type:'warning'});
-            //this.projectList = data;
-        }.bind(this));
+        var gradeSubmissionsHub = connection.createHubProxy('gradeSubmissionsHub');
         projectsHub.on('notifyChange', function (proj, msg, type) {
             switch (type) {
                 case MsgType.SUCCESS:
@@ -34,44 +27,50 @@ var SubmitProjectsCtrl = (function () {
                     break;
             }
         }.bind(this));
-        submitProjectsHub.on('submissionTeamPoll', function (data) {
+        gradeSubmissionsHub.on('submissionTeamPoll', function (data) {
             // Map each element to corresponding project
-            $scope.projects.submissions = new Array();
-            // Get a hashmap of project_id->TeamSubmission
-            var mapping = {};
-            data.map(function (value) {
-                mapping[value.Project.ID] = value;
-            }.bind(this));
-            // Fill array of team submissions
-            $scope.projects.list.map(function (proj, index) {
-                // True if key doesn't exists
-                if (!(proj.ID in mapping)) {
-                    $scope.projects.submissions.push(new TeamSubmission(-1, null, proj, null, -1, ""));
-                }
-                else {
-                    $scope.projects.submissions.push(mapping[proj.ID]);
-                }
-            }.bind(this));
+            $scope.projects.submissions = data;
             $scope.tableParams = new NgTableParams({}, { dataset: $scope.projects.submissions });
             $scope.$apply();
+        }.bind(this));
+        gradeSubmissionsHub.on('updatedSubmission', function (data) {
+            if ($scope.projects.submissions != null) {
+                var found = false;
+                $scope.projects.submissions.map(function (value, index, arr) {
+                    if (value.ID == data.ID) {
+                        // Update relevant data
+                        value.RawZipSolution = data.RawZipSolution;
+                        value.Score = data.Score;
+                        value.Project = data.Project;
+                        value.GraderComment = data.GraderComment;
+                        found = true;
+                    }
+                });
+                if (!found) {
+                    $scope.projects.submissions.push(data);
+                }
+                $scope.tableParams = new NgTableParams({}, { dataset: $scope.projects.submissions });
+                $scope.$apply();
+            }
         }.bind(this));
         //Subscribe(UserDTO usr)
         connection.start().done(function () {
             console.log('Connection established!');
             projectsHub.invoke("Subscribe", $scope.currentUser);
-            submitProjectsHub.invoke("Subscribe", $scope.currentUser);
-            projectsHub.invoke("PollProjectList", $scope.currentUser);
+            gradeSubmissionsHub.invoke("Subscribe", $scope.currentUser);
+            gradeSubmissionsHub.invoke("submissionTeamPoll", $scope.currentUser);
         });
-        this.addSubmissionModal = function (proj) {
-            this.showAModal(proj, "Client/Pages/SubmitProjects/AddSubmissionModal.html", "GenericYesNoModalCtrl", function (result) {
+        this.addSubmissionModal = function (sub) {
+            this.showAModal(sub, "Client/Pages/GradeSubmissions/GradeSubmissionModal.html", "GenericYesNoModalCtrl", function (result) {
                 if (!result.cancel) {
                     // Any file uploads?
-                    // Upload Zip
-                    if (result.uploadme1.src != "") {
-                        submitProjectsHub.invoke("addSubmission", $scope.currentUser, new TeamSubmission(0, result.uploadme1.src.data.split(",")[1], proj, null, 0, ""));
+                    // Is the score within a valid value, -1 special value indicator for ungraded.
+                    if (sub.Score != -1 && sub.Score < 0 && sub.Score <= sub.Project.MaxScore) {
+                        growl.warning("Please enter a score from -1 or to the MaxScore");
                     }
                     else {
-                        growl.warning("You must first make a submission!");
+                        sub.Score = result.param1;
+                        gradeSubmissionsHub.invoke('GradeSubmission', $scope.currentUser, sub);
                     }
                 }
             });
@@ -96,7 +95,7 @@ var SubmitProjectsCtrl = (function () {
         }.bind(this);
     }
     ;
-    SubmitProjectsCtrl.prototype.base64ToHex = function (str) {
+    GradeSubmissionsCtrl.prototype.base64ToHex = function (str) {
         for (var i = 0, bin = atob(str.replace(/[ \r\n]+$/, "")), hex = []; i < bin.length; ++i) {
             var tmp = bin.charCodeAt(i).toString(16);
             if (tmp.length === 1)
@@ -106,7 +105,7 @@ var SubmitProjectsCtrl = (function () {
         return hex.join(" ");
     };
     // Data is Base64 string
-    SubmitProjectsCtrl.prototype.downloadFile = function (name, data) {
+    GradeSubmissionsCtrl.prototype.downloadFile = function (name, data) {
         var byteCharacters = atob(data);
         var byteNumbers = new Array(byteCharacters.length);
         for (var i = 0; i < byteCharacters.length; i++) {
@@ -125,5 +124,5 @@ var SubmitProjectsCtrl = (function () {
         document.body.appendChild(a);
         a.click();
     };
-    return SubmitProjectsCtrl;
+    return GradeSubmissionsCtrl;
 }());
