@@ -10,7 +10,6 @@ using System.Web.Http;
 using System.Web.Optimization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PCMC.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace PCMC
@@ -29,9 +28,6 @@ namespace PCMC
         public IConfigurationRoot Config { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddDbContext<CompDBContext>(options =>
-                options.UseSqlServer(Config.GetConnectionString("DefaultConnection")));
         }
 
         void Application_Error(object sender, EventArgs e)

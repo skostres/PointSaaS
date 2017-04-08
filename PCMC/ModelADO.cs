@@ -23,8 +23,16 @@ namespace PCMC
 
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
-        public virtual DbSet<Instructor> Instructors { get; set; }
-        
+        public virtual DbSet<GlobalSettings> GlobalSettings { get; set; }
+        public virtual DbSet<Instances> Instances { get; set; }
+
+        public virtual DbSet<ServerLocations> ServerLocations { get; set; }
+
+        public virtual DbSet<EmailQueue> EmailQueue { get; set; }
+        public virtual DbSet<EmailTemplates> EmailTemplates { get; set; }
+
+        public virtual DbSet<InstanceTypes> InstanceTypes { get; set; }
+
         public virtual DbSet<User> User { get; set; }
     }
 

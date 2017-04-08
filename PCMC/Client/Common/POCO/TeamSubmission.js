@@ -9,3 +9,4 @@ var TeamSubmission = (function () {
     }
     return TeamSubmission;
 }());
+//# sourceMappingURL=TeamSubmission.js.map

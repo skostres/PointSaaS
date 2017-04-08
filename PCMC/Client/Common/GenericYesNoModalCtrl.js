@@ -62,3 +62,4 @@ var GenericYesNoModalCtrl = (function () {
     };
     return GenericYesNoModalCtrl;
 }());
+//# sourceMappingURL=GenericYesNoModalCtrl.js.map

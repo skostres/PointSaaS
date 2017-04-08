@@ -5,14 +5,15 @@ using System.Web;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace PCMC.Entities
 {
-    public class InstanceTypes
+    public class EmailTemplates
     {
         [Key]
         public int ID { get; set; }
-        public string Name { get; set; }
-        public string SysUser { get; set; }
-        public string SysPass { get; set; }
+        public string TemplateFileName { get; set; }
+        public string EmailSubject { get; set; }
+        public InstanceTypes InstanceType { get; set; }
     }
 }

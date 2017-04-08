@@ -382,8 +382,6 @@
     <Content Include="Client\App.js" />
     <Content Include="Client\Pages\Dashboard\Dashboard.html" />
     <Content Include="Client\Navigation\Navigation.html" />
-    <Content Include="Client\Pages\Instances\InstancesModal.html" />
-    <Content Include="Client\Pages\Instances\Instances.html" />
     <Content Include="Client\Pages\Login\Login.html" />
     <Content Include="Client\Pages\Report\Report.html" />
     <Content Include="Client\Pages\SubmitProjects\AddSubmissionModal.html" />
@@ -478,7 +476,6 @@
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <Content Include="Content\plugins\ng-table.css.map" />
-    <Content Include="PCMC_SetupNewest.xls" />
     <None Include="Properties\PublishProfiles\IIS_PCMC.pubxml" />
     <None Include="scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="scripts\jquery-1.12.4.js" />
@@ -543,10 +540,10 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Data\CompDBContext.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="DTO\UserRoleDTO.cs" />
     <Compile Include="Entities\EmailQueue.cs" />
+    <Compile Include="Entities\EmailTemplates.cs" />
     <Compile Include="Entities\GlobalSettings.cs" />
     <Compile Include="Entities\Instances.cs" />
     <Compile Include="Entities\InstanceTypes.cs" />
@@ -586,6 +583,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Client\Pages\Instances\" />
     <Folder Include="Content\fonts\" />
     <Folder Include="Views\Auth\" />
     <Folder Include="Views\Base\" />
@@ -611,7 +609,6 @@
     <TypeScriptCompile Include="Client\Navigation\NavigationCtrl.ts" />
     <Content Include="Client\Notifications\Notification.html" />
     <TypeScriptCompile Include="Client\Notifications\NotificationsCtrl.ts" />
-    <TypeScriptCompile Include="Client\Pages\Instances\InstancesCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\Login\LoginCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\Report\ReportCtrl.ts" />
     <TypeScriptCompile Include="Client\Pages\SubmitProjects\SubmitProjectsCtrl.ts" />

@@ -5,3 +5,4 @@ var BaseCtrl = (function () {
     }
     return BaseCtrl;
 }());
+//# sourceMappingURL=BaseCtrl.js.map
