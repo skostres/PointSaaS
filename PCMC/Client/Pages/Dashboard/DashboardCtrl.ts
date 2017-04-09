@@ -3,15 +3,40 @@
 
 class DashboardCtrl {
 
-    constructor($scope: any, $state: any, SignalRSrv: any, ModalService: any, growl: any) {
+    constructor($scope: any, $state: any, $http, SignalRSrv: any, ModalService: any, growl: any, NgTableParams) {
 
         // SignalR Setup
         console.log('trying to connect to service')
         var connection = SignalRSrv.connection;
-        var dashboardHub = connection.createHubProxy('dashboardHub');
-        var projectsHub = connection.createHubProxy('projectsHub');
+        this.dashboardHub = connection.createHubProxy('CommunicationHub');
+        this.scope = $scope;
+        this.ModalService = ModalService;
+        this.http = $http;
+        this.growl = growl;
+        $scope.checkExtension = function (extension: string) {
+            alert("HERE");
+            return this.http
+                .post('api/Auth/ExtensionCheck', extension)
+                .then(function (res) {
+                    return res;
+                }.bind(this))
+                .catch(function (response) {
+                    this.error("Extension In Use", { ttl: 10000 });
+                }.bind(this))
+        };
 
-        projectsHub.on('notifyChange', function (proj: Project, msg: string, type: MsgType) {
+        this.dashboardHub.on('updateInstanceList', function (data: Array<Instance>) {
+            $scope.myInstances = data;
+            $scope.tableParams = new NgTableParams({ sorting: { score: "desc" } }, { dataset: $scope.myInstances });
+            $scope.$apply();
+        });
+
+        // Server tells client to request data refresh due to complex data change
+        this.dashboardHub.on('triggerUpdate', function () {
+            this.dashboardHub.invoke("PollInstanceList", $scope.currentUser);
+        }.bind(this));
+
+        this.dashboardHub.on('notifyChange', function (msg: string, type: MsgType) {
             switch (type) {
                 case MsgType.SUCCESS: growl.success(msg); break;
                 case MsgType.INFORMATION: growl.info(msg); break;
@@ -20,61 +45,85 @@ class DashboardCtrl {
             }
         }.bind(this));
 
-        // Initial values
-        $scope.numberOfProjects = 0;    // Admin View
-        $scope.numberOfJudges = 0;      // Admin View
-        $scope.numberOfStudents = 0;    // Admin View
-        $scope.numberOfTeams = 0;       // Admin View
-        $scope.numberOfSubmissionsAwaitingGrades = 0;   // Admin / Judge view
-        
+        this.dashboardHub.on('updateServerLocationList', function (data: Array<ServerLocation>) {
+            $scope.serverLocations = data;
+            $scope.$apply();
+        }.bind(this));
 
-        $scope.numberOfProjectsAwaitingSubmissions = 0; //Participant View Only
-
-        // Admin relevant data
-        if ($scope.currentUser.UserRole == Role.Admin) {
-            dashboardHub.on('updateNumberOfProjects', function (data: number) {
-                $scope.numberOfProjects = data;
-                $scope.$apply();
-            });
-
-            dashboardHub.on('updateNumberOfJudges', function (data: number) {
-                $scope.numberOfJudges = data;
-                $scope.$apply();
-            });
-
-            dashboardHub.on('updateNumberOfStudents', function (data: number) {
-                $scope.numberOfStudents = data;
-                $scope.$apply();
-            });
-
-            dashboardHub.on('updateNumberOfTeams', function (data: number) {
-                $scope.numberOfTeams = data;
-                $scope.$apply();
-            });
-        }
-
-        // Admn / Judge relevant data
-        if ($scope.currentUser.UserRole == Role.Admin || $scope.currentUser.UserRole == Role.User) {
-            dashboardHub.on('updateNumberOfSubmissionsAwaitingGrades', function (data: number) {
-                $scope.numberOfSubmissionsAwaitingGrades = data;
-                $scope.$apply();
-            });
-        }
-
-        // Server tells client to request data refresh due to complex data change
-        dashboardHub.on('triggerUpdate', function () {
-            dashboardHub.invoke("PollInitialData", $scope.currentUser);
-        });
+        this.dashboardHub.on('updateInstanceTypeList', function (data: Array<InstanceType>) {
+            $scope.instanceOptions = data;
+            $scope.$apply();
+        }.bind(this));
 
         // SignalR Start session
         connection.start().done(function () {
             console.log('Connection established!');
-            projectsHub.invoke("Subscribe", $scope.currentUser);
-            dashboardHub.invoke("Subscribe", $scope.currentUser);
-            dashboardHub.invoke("PollInitialData", $scope.currentUser);
-        });
-
-
+            this.dashboardHub.invoke("Subscribe", $scope.currentUser);
+            this.dashboardHub.invoke("PollInstanceList", $scope.currentUser);
+            this.dashboardHub.invoke("PollServerLocations", $scope.currentUser);
+            this.dashboardHub.invoke("PollInstanceTypes", $scope.currentUser);
+        }.bind(this));
     };
 
+    public dashboardHub: any;
+    public scope: any;
+    public ModalService: any;
+    public growl: any;
+    public http: any;
+
+    public InstanceAction(instance: Instance, action:string) {
+
+        switch (action) {
+            case "stop":
+                alert("Stop: Operation not yet implemented");
+                break;
+            case "resume":
+                alert("resume: Operation not yet implemented");
+                break;
+            case "pause":
+                alert("Pause: Operation not yet implemented");
+                break;
+            case "delete":
+                alert("Delete: Operation not yet implemented");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public addInstanceModal() {
+        var addInstanceModel = new AddInstanceModel();
+        addInstanceModel.ServerLocationOptions = this.scope.serverLocations;
+        addInstanceModel.InstanceTypeOptions = this.scope.instanceOptions;
+        addInstanceModel.IsValidExtension = false;
+        this.showAModal(addInstanceModel,
+            "Client/Pages/Dashboard/AddInstanceModal.html",
+            "GenericYesNoModalCtrl", function (result) {
+                if (!result.cancel) {
+                    result.model.ServerLocationOptions = null;
+                    result.model.InstanceTypeOptions = null;
+                    this.dashboardHub.invoke("RequestInstance", this.scope.currentUser, result.model);
+                }
+            }.bind(this));
+    }
+
+   public showAModal (model:any, template: string, controller: string, callback) {
+        // Just provide a template url, a controller and call 'showModal'.
+        this.ModalService.showModal({
+            templateUrl: template,
+            controller: controller,
+            inputs: {
+                model: model
+            }
+        }).then(function (modal) {
+            // The modal object has the element built, if this is a bootstrap modal
+            // you can call 'modal' to show it, if it's a custom modal just show or hide
+            // it as you need to.
+            modal.element.modal();
+            modal.close.then(function (result) {
+                callback(result);
+            }.bind(this));
+        }.bind(this));
+    }
+    
 }

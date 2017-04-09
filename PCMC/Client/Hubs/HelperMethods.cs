@@ -15,7 +15,7 @@ namespace PCMC.Client.Hubs
     {
         protected static ModelADO db = new ModelADO();
 
-        private bool IsAdmin(UserDTO usr)
+        public static bool IsAdmin(UserDTO usr)
         {
             
             User userFromDB = GetUser(usr);
@@ -26,7 +26,17 @@ namespace PCMC.Client.Hubs
             return false;
         }
 
-        private User GetUser(UserDTO usr)
+        public static bool IsAdmin(User userFromDB)
+        {
+            if (userFromDB != null && userFromDB.Role == UserRole.Admin)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static User GetUser(UserDTO usr)
         {
             User userFromDB = null;
             IQueryable<User> userDB = db.User.Where(c => c.Username == usr.Username && c.Password == usr.Password);
@@ -38,7 +48,7 @@ namespace PCMC.Client.Hubs
             return userFromDB;
         }
 
-        private bool IsParticipant(UserDTO usr)
+        public static bool IsParticipant(UserDTO usr)
         {
             IQueryable<User> userDB = db.User.Where(c => c.Username == usr.Username && c.Password == usr.Password);
 

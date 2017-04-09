@@ -95,18 +95,16 @@ namespace PCMC
                      
 
                      "~/scripts/angular-signalr-hub.min.js",
-                     "~/Client/Common/POCO/Level.js",
-                     "~/Client/Common/POCO/Team.js",
-                     "~/Client/Common/POCO/Instructor.js",
-                     "~/Client/Common/POCO/School.js",
-                     "~/Client/Common/POCO/Student.js",
-                      "~/Client/Common/POCO/TeamSubmission.js",
-                      "~/Client/Common/POCO/ReportRecord.js",
-                      "~/Client/Common/POCO/ReportModel.js",
+
+                     "~/Client/Common/POCO/ExtensionURLModel.js",
+                     "~/Client/Common/POCO/AddInstanceModel.js",
+                     "~/Client/Common/POCO/Instance.js",
+                     "~/Client/Common/POCO/InstanceType.js",
+                     "~/Client/Common/POCO/ServerLocation.js",
+
                      "~/Client/Common/POCO/MsgType.js",
                      "~/Client/Common/POCO/Role.js",
                      "~/Client/Common/POCO/User.js",
-                     "~/Client/Common/POCO/Project.js",
                      "~/Client/Service/Session.js",
                      "~/Client/Service/AuthService.js",
                      
@@ -121,15 +119,11 @@ namespace PCMC
                    "~/Client/Hubs/Communication.js",
                     //"~/scripts/angular-route.min.js",
                     // Controllers...
+                    "~/Client/Pages/Instances/InstancesCtrl.js",
                     "~/Client/Navigation/NavigationCtrl.js",
-                    "~/Client/Pages/GradeSubmissions/GradeSubmissionsCtrl.js",
-                    "~/Client/Pages/Report/ReportCtrl.js",
-                    "~/Client/Pages/SubmitProjects/SubmitProjectsCtrl.js",
-                    "~/Client/Pages/ManageProjects/ManageProjects.js",
                     "~/Client/Notifications/NotificationsCtrl.js",
                      "~/Client/Pages/Login/LoginCtrl.js",
                     "~/Client/Pages/Dashboard/DashboardCtrl.js",
-                    "~/Client/Pages/Projects/ProjectsCtrl.js",
                     "~/Client/Service/SystemSrv.js",
                     "~/Client/App.js"));
         }

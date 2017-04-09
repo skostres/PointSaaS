@@ -5,8 +5,8 @@ using System.Web;
 
 namespace PCMC.DTO
 {
-    public enum UserRoleDTO
+    public enum MsgTypeDTO
     {
-        Admin=0, User=1,  Guest=3, All=4
+        SUCCESS = 0, INFORMATION = 1, WARNING = 2, ERROR = 3
     }
 }

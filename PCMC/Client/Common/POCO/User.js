@@ -33,10 +33,10 @@ var User = (function () {
         this.roleStr = null;
     };
     User.prototype.set = function (userId, LastName, FirstName, Email, Password, Username, userRole) {
+        this.ID = userId;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Email = Email;
-        this.ID = userId;
         this.Username = Username;
         this.Password = Password;
         this.UserRole = userRole;

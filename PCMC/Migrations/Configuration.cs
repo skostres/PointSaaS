@@ -27,18 +27,17 @@ namespace PCMC.Migrations
             );
             context.SaveChanges();
 
-            InstanceTypes wordpress = new InstanceTypes { ID = 1, Name = "Wordpress Version 2.43", SysUser = "Admin", SysPass = "TheGreatPassword" };
+            InstanceTypes drupal = new InstanceTypes { ID = 1, Name = "Drupal v8.3.0", SysUser = "admin", SysPass = "maintenance!" };
             context.InstanceTypes.AddOrUpdate(
                 p => p.ID,
-                wordpress
-
+                drupal
             );
             context.SaveChanges();
 
-            ServerLocations miami = new ServerLocations { ID = 1, LocationName = "Miami", ServerIP = "45.63.105.19", ServerPort = "2983", ServerURL = "Miami.kostreski.com" };
+            ServerLocations silicon_valley = new ServerLocations { ID = 1, LocationName = "Silicon Valley", ServerIP = "104.207.149.59", ServerPort = "2983", ServerURL = "http://104.207.149.59/" };
             context.ServerLocations.AddOrUpdate(
                 p => p.ID,
-                miami
+                silicon_valley
             );
             context.SaveChanges();
 
@@ -48,24 +47,24 @@ namespace PCMC.Migrations
                 {
                     ID = 1,
                     DeleteDate = new DateTime(2016, 8, 19),
-                    InstanceType = context.InstanceTypes.Single(p=>p.ID==wordpress.ID),
-                    LocationInstalled = context.ServerLocations.Single(p => p.ID == miami.ID),
+                    InstanceType = context.InstanceTypes.Single(p=>p.ID==drupal.ID),
+                    LocationInstalled = context.ServerLocations.Single(p => p.ID == silicon_valley.ID),
                     Owner = context.User.Single(p => p.ID == ben.ID),
-                    URL= "miami.pointsaas.kostreski.com/benswordpress"
+                    URL= "drupal"
                 }
             );
             context.SaveChanges();
 
-            EmailTemplates wordpress_Welcome = new EmailTemplates { ID = 1, EmailSubject = "Welcome to wordpress on PointSaaS", InstanceType = context.InstanceTypes.Single(p => p.ID == wordpress.ID), TemplateFileName = "Welcome.tpl" };
+            EmailTemplates Drupal_Welcome = new EmailTemplates { ID = 1, EmailSubject = "Welcome to Drupal on PointSaaS", InstanceType = context.InstanceTypes.Single(p => p.ID == drupal.ID), TemplateFileName = "Welcome.tpl" };
             context.EmailTemplates.AddOrUpdate(
                 p => p.ID,
-                wordpress_Welcome
+                Drupal_Welcome
             );
             context.SaveChanges();
 
             EmailQueue queue = new EmailQueue { ID = 1, FutureTime= new DateTime(2016, 8, 19),Instance= context.Instances.Single(p => p.ID == 1),IsReady=true,
                 Owner = context.User.Single(p => p.ID == ben.ID),
-                Template = context.EmailTemplates.Single(p => p.ID == wordpress_Welcome.ID)
+                Template = context.EmailTemplates.Single(p => p.ID == Drupal_Welcome.ID)
             };
             context.EmailQueue.AddOrUpdate(
                 p => p.ID,

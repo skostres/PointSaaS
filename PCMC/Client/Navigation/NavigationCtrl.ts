@@ -3,17 +3,29 @@
 
 class NavigationCtrl {
     public Sys: SystemSrv;
-    constructor($scope, $rootScope, SystemSrv: SystemSrv) {
+    public growl: any;
+    constructor($scope, $http, $rootScope, SystemSrv: SystemSrv, growl) {
         this.Sys = SystemSrv;
         $scope.vm = this;
         // Generate level options
         $rootScope.levels = {};
-        for (var enumMember in Level) {
-            var isValueProperty = parseInt(enumMember, 10) >= 0
-            if (isValueProperty) {
-                $rootScope.levels[enumMember] = { "ID": enumMember, "Name": Level[enumMember] };
-            }
-        }
+        this.growl = growl;
+        $rootScope.checkExtension =
+            function (model: AddInstanceModel) {
+
+            var toSend = new ExtensionURLModel();
+            toSend.Extension = model.URLExtension;
+            toSend.IsValid = false;
+            return $http
+                .post('api/Auth/ExtensionCheck', toSend)
+                .then(function (res) {
+                    model.IsValidExtension = res.data.IsValid;
+                    return res;
+                }.bind(this))
+                .catch(function (response) {
+                    
+                }.bind(this))
+        }.bind(this);
     };
 
 }

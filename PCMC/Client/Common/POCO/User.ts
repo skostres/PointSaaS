@@ -12,10 +12,11 @@
     public ID: number;
     public LastName: string;
     public FirstName: string;
+    public Email: string;
     public Password: string;
     public Username: string;
     public UserRole: Role;
-    public Email: string;
+    
     ////////////////////////
     public roleStr: string;
 
@@ -41,10 +42,10 @@
         this.roleStr = null;
     }
     public set(userId: number, LastName: string, FirstName: string, Email: string, Password: string, Username: string, userRole: Role) {
+        this.ID = userId;
         this.FirstName = FirstName;
         this.LastName = LastName;
         this.Email = Email;
-        this.ID = userId;
         this.Username = Username;
         this.Password = Password;
         this.UserRole = userRole;

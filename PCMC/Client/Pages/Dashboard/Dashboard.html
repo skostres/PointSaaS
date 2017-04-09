@@ -1,4 +1,4 @@
-﻿<div id="page-wrapper">
+﻿<div id="page-wrapper" ng-controller="DashboardCtrl as dashCtrl">
     <div class="container-fluid">
         <!-- Page Heading -->
 
@@ -7,8 +7,7 @@
                 <h1 ng-switch="currentUser.roleStr" class="page-header">
                     Dashboard
                     <small ng-switch-when="Admin">Admin View</small>
-                    <small ng-switch-when="Judge">Judge View</small>
-                    <small ng-switch-when="Participant">Participant View</small>
+                    <small ng-switch-when="User">User View</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li class="active">
@@ -18,196 +17,59 @@
             </div>
         </div>
 
-        <div ng-switch="currentUser.roleStr">
-            <!-- Admin /.row -->
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="dropdown">
+                    <span>
+                        <button class="btn btn-sm btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <span class="caret"></span>
+                            Export Table Data
+                        </button>
+                    </span>
+                    <span><button type="button" class="btn btn-sm btn-success" ng-click="dashCtrl.addInstanceModal()">Add an Instance</button></span>
+                    <ul class="table-export dropdown-menu" table-selector="'report'" export-options="{type: 'pdf', escape: true, tableName: 'report',consoleLog:'true'  }" aria-labelledby="dropdownMenu1">
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer" te-option te-value="'csv'" te-param="'type'"> <i class="fa fa-file-excel-o"></i> CSV</a></li>
+                        <li><a style="cursor:pointer" te-option te-value="'txt'" te-param="'type'"> <i class="fa fa-file-text"></i> TXT</a></li>
+                        <li class="divider"></li>
 
-            <div ng-switch-when="Admin" class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel panel-blue">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfJudges}}</div>
-                                        <div>Judge Members</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--
-                <a href="#">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                -->
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel panel-orange">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfStudents}}</div>
-                                        <div>Student Members</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--
-                <a href="#">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                    -->
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-users fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfTeams}}</div>
-                                        <div>Number of Teams</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--
-                <a href="#">
-                    <div class="panel-footer">
-                        <span class="pull-left">View Details</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-                    -->
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-12">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfProjects}}</div>
-                                        <div>Projects Available</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#/Projects">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfSubmissionsAwaitingGrades}}</div>
-                                        <div>Submissions Not Graded</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#/GradeSubmissions">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                        <li><a style="cursor:pointer" te-option te-value="'excel'" te-param="'type'"> <i class="fa fa-file-excel-o"></i> XLS</a></li>
+                        <li><a style="cursor:pointer" te-option te-value="'doc'" te-param="'type'"> <i class="fa fa-file-word-o"></i> Word</a></li>
+                        <li class="divider"></li>
+                        <li><a style="cursor:pointer" te-option te-value="'png'" te-param="'type'"> <i class="fa fa-file-picture-o"></i> PNG</a></li>
+                    </ul>
                 </div>
             </div>
-            <!-- /.row -->
-            <!-- Judge /.row -->
+            <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped export-table" id="report" name="report" ng-table="tableParams" show-filter="false">
 
-            <div ng-switch-when="Judge" class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel" ng-class="{'panel-green': numberOfSubmissionsAwaitingGrades == 0, 'panel-red': numberOfSubmissionsAwaitingGrades != 0}">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfSubmissionsAwaitingGrades}}</div>
-                                        <div>Submissions Not Graded</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#/GradeSubmissions">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                        <tbody ng-repeat="model in $data track by model.ID">
+                            <tr class="text-center" style="font-weight:bold;vertical-align: middle;">
+                                <td title="'Instance ID'" sortable="'team.lvl'">{{model.ID}}</td>
+                                <td title="'Web App Name'" sortable="'InstanceType.Name'">{{model.InstanceType.Name}}</td>
+                                <td title="'Default Username'" sortable="'InstanceType.SysUser'">{{model.InstanceType.SysUser}}</td>
+                                <td title="'Default Password'" sortable="'school.Name'">{{model.InstanceType.SysPass}}</td>
+                                <td title="'Server Location'" sortable="'LocationInstalled.Name'">{{model.LocationInstalled.LocationName}}</td>
+                                <td title="'Instance URL'" sortable="'URL'"><a href="{{model.LocationInstalled.ServerURL}}{{model.URL}}">{{model.LocationInstalled.ServerURL}}{{model.URL}}</a></td>
+                                <td title="'Manage'">
+                                    <a style="cursor:pointer" ng-click="dashCtrl.InstanceAction(model,'resume')"><span class="fa fa-play-circle-o" style="color:green"></span> Resume</a>
+                                        <a style="cursor:pointer" ng-click="dashCtrl.InstanceAction(model,'pause')"><span class="fa fa-pause-circle-o" style="color:blue"></span> Pause</a>
+                                    <br />
+                                        <a style="cursor:pointer;" ng-click="dashCtrl.InstanceAction(model,'stop')"><span class="fa fa-power-off" style="color:red"></span> Stop</a>
+                                        <a style="cursor:pointer;" ng-click="dashCtrl.InstanceAction(model,'delete')"><span class="fa fa-times-circle" style="color:red"></span> Delete</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
                 </div>
             </div>
-            <!-- /.row -->
-            <!-- Participant /.row -->
-
-            <div ng-switch-when="Participant" class="row">
-                <div class="col-lg-12">
-                    <div class="col-lg-4 col-md-4">
-                        <div class="panel" ng-class="{'panel-green': numberOfProjectsAwaitingSubmissions == 0, 'panel-red': numberOfProjectsAwaitingSubmissions != 0}">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-tasks fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge">{{numberOfProjectsAwaitingSubmissions}}</div>
-                                        <div ng-switch="numberOfProjectsAwaitingSubmissions">
-                                            <div ng-switch-when="0"><span class="fa fa-check-circle"></span> All Projects submitted!</div>
-                                            <div ng-switch-default><span class="fa fa-minus-circle"></span> Projects Not Submitted</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#/SubmitProjects">
-                                <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
         </div>
+        <!-- /.row -->
+
+
     </div>
     <!-- /.container-fluid -->
 </div>

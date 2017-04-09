@@ -6,7 +6,7 @@ var AuthService = (function () {
             return $http
                 .post('api/Auth/Login', credentials)
                 .then(function (res) {
-                AuthService.authService.session.create(res.data.ID, res.data.LastName, res.data.FirstName, res.data.Password, res.data.Username, res.data.Role);
+                AuthService.authService.session.create(res.data.ID, res.data.LastName, res.data.FirstName, res.data.Email, res.data.Password, res.data.Username, res.data.Role);
                 return AuthService.authService.session.currentUser;
             }.bind(this))
                 .catch(function (response) {

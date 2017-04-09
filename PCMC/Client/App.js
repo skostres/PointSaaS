@@ -25,7 +25,7 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
                 $state.go("Dashboard");
         },
         data: {
-            authorizedRoles: [USER_ROLES.all]
+            authorizedRoles: [USER_ROLES.admin, USER_ROLES.user, USER_ROLES.all]
         }
     });
     $stateProvider.state('Dashboard', {
@@ -39,7 +39,7 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
 
 
     $stateProvider.state('Instances', {
-        url: '/Projects',
+        url: '/Instances',
         templateUrl: 'Client/Pages/Instances/Instances.html',
         controller: "InstancesCtrl",
         data: {
@@ -141,11 +141,6 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
     .controller("NavigationCtlr", NavigationCtrl)
     .controller("DashboardCtrl", DashboardCtrl)
     .controller("InstancesCtrl", InstancesCtrl)
-    //.controller("NotificationsCtrl", NotificationsCtrl)
-    //.controller("GradeSubmissionsCtrl", GradeSubmissionsCtrl)
-    //.controller("ManageProjectsCtrl", ManageProjectsCtrl)
-    //.controller("SubmitProjectsCtrl", SubmitProjectsCtrl)
-    //.controller("ReportCtrl", ReportCtrl)
     .controller('AuthCtrl', function ($scope,
                                       USER_ROLES,
                                       AuthService) {
@@ -160,6 +155,40 @@ PCMCApp.config(function ($stateProvider, $urlRouterProvider, USER_ROLES) {
         };
     })
     .controller("LoginCtrl", LoginCtrl)
+    .directive('extension', function($q, $timeout) {
+        return {
+            require: 'ngModel',
+            link: function(scope, elm, attrs, ctrl) {
+
+                ctrl.$asyncValidators.extension = function(modelValue, viewValue) {
+                
+                    var checkExtension = function (extension) {
+                        return $http
+                            .post('api/Auth/ExtensionCheck', extension)
+                            .then(function (res) {
+                                return res;
+                            }.bind(this))
+                            .catch(function (response) {
+                                growl.error("Extension In Use", { ttl: 10000 });
+                            }.bind(this))
+                    }.bind(this);
+
+                    var def = $q.defer();
+
+                    
+                        // Mock a delayed response
+                        if (checkExtension(modelValue)) {
+                            // The username is available
+                            def.resolve();
+                        } else {
+                            def.reject();
+                        }
+
+                    return def.promise;
+                };
+            }
+        };
+    })
     .directive('loginDialog', function (AUTH_EVENTS) {
         return {
             restrict: 'A',

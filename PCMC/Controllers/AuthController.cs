@@ -14,15 +14,6 @@ namespace PCMC.Controllers
 {
     public class AuthController : BaseController
     {
-        /* [HttpPost]
-         public IHttpActionResult Login(LoginViewModel login)
-         {
-
-             return Json(new { status = true, id = "Gone with Wind", user = new { role = "admin", id = 1, name = login.UserName } });
-
-         }
-         */
-
         // GET: api/auth/Login
         [ResponseType(typeof(User))]
         [HttpPost]
@@ -37,6 +28,22 @@ namespace PCMC.Controllers
             }
 
             return Ok(userDB.First());
+        }
+
+        [ResponseType(typeof(ExtensionURLModel))]
+        [AcceptVerbs("POST", "PUT")]
+        [Route("api/Auth/ExtensionCheck")]
+        public IHttpActionResult ExtensionCheck(ExtensionURLModel extension)
+        {
+            IQueryable<Instances> userDB = db.Instances.Where(c => c.URL.Equals(extension.Extension));
+
+            if (userDB != null && userDB.Count() == 0)
+            {
+                extension.IsValid = true;
+                return Ok(extension);
+            }
+            extension.IsValid = false;
+            return Ok(extension);
         }
     }
 }
