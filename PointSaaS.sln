@@ -5,6 +5,23 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PointSaaS", "PCMC\PointSaaS.csproj", "{F6E64384-0CA5-4A13-804E-6478E62D6D28}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailApp", "EmailApp", "{14C03379-6A8C-4A2E-96ED-2BB9B5368EC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5F48CABF-D5C3-483B-A2A3-98BA54546181}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{23F00493-7755-43BF-9213-28BF999DCBFB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "main", "main", "{C4DEEA70-F1BE-48DA-9EDE-9797FC1C41C9}"
+	ProjectSection(SolutionItems) = preProject
+		E:\EmailScheduler\src\main\EmailRecord.java = E:\EmailScheduler\src\main\EmailRecord.java
+		E:\EmailScheduler\src\main\Main.java = E:\EmailScheduler\src\main\Main.java
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InstanceCreation", "InstanceCreation", "{848CB203-BF06-4175-B7D0-F20F5D9BAF75}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\Images.zip = ..\..\..\..\Desktop\Images.zip
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +35,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5F48CABF-D5C3-483B-A2A3-98BA54546181} = {14C03379-6A8C-4A2E-96ED-2BB9B5368EC9}
+		{23F00493-7755-43BF-9213-28BF999DCBFB} = {5F48CABF-D5C3-483B-A2A3-98BA54546181}
+		{C4DEEA70-F1BE-48DA-9EDE-9797FC1C41C9} = {5F48CABF-D5C3-483B-A2A3-98BA54546181}
 	EndGlobalSection
 EndGlobal
